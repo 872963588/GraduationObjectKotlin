@@ -4,6 +4,10 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 
+/**
+ * 全局获取Context
+ */
+
 class GraduationProjectKotlinApplication : Application() {
 
     companion object {
