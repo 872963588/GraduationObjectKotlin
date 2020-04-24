@@ -4,21 +4,22 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationprojectkotlin.R
-import com.example.graduationprojectkotlin.StudyActivity
 import com.example.graduationprojectkotlin.logic.model.Task
+import com.example.graduationprojectkotlin.ui.study.OthersFileActivity
+import com.example.graduationprojectkotlin.ui.study.Tbs1Activity
 
 class TaskAdapter(val fragment: Fragment, private val taskList: List<Task>) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val taskName: TextView = view.findViewById(R.id.tv_task_name)
-        val taskTime: TextView = view.findViewById(R.id.tv_time)
-        val taskDetail: TextView = view.findViewById(R.id.tv_task_detail)
+        val taskName: TextView = view.findViewById(R.id.tv_course_name)
+        val taskTime: TextView = view.findViewById(R.id.tv_course_detail)
+        val taskDetail: TextView = view.findViewById(R.id.tv_course_owner)
+        //val taskUrl: TextView = view.findViewById(R.id.tv)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,12 +44,16 @@ class TaskAdapter(val fragment: Fragment, private val taskList: List<Task>) :
 //                .show()
 //        }
         //TODO 传给StudyActivity一个值（用来判断加载什么类型的Fragment）
-        viewHolder.itemView.setOnClickListener{
-            val position = viewHolder.adapterPosition
-            val intent = Intent(parent.context, StudyActivity::class.java)
-                .apply { putExtra("extra_data",position%2) }
-            fragment.startActivity(intent)
-        }
+        viewHolder.itemView.setOnClickListener {
+
+//                val position = viewHolder.adapterPosition
+//                val intent = Intent(parent.context, Tbs1Activity::class.java)
+//                    .apply { putExtra("extra_data", taskList[position].task_url) }
+                val intent = Intent(parent.context, OthersFileActivity::class.java)
+                    .apply { putExtra("extra_data", "http://47.93.59.28:8080/AppService/123.docx") }
+                fragment.startActivity(intent)
+            }
+
         return viewHolder
     }
 
@@ -56,7 +61,7 @@ class TaskAdapter(val fragment: Fragment, private val taskList: List<Task>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = taskList[position]
-        holder.taskDetail.text=task.task_detail
+        holder.taskDetail.text = task.task_detail
         holder.taskName.text = task.task_name
         holder.taskTime.text = task.task_time
     }

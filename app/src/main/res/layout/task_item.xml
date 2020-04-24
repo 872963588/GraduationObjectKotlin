@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_time"
+            android:id="@+id/tv_course_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -33,7 +33,7 @@
             android:padding="5dp">
 
             <TextView
-                android:id="@+id/tv_task_name"
+                android:id="@+id/tv_course_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -43,7 +43,7 @@
                 android:textColor="@color/design_default_color_secondary_variant" />
 
             <TextView
-                android:id="@+id/tv_task_detail"
+                android:id="@+id/tv_course_owner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

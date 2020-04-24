@@ -3,6 +3,7 @@ package com.example.graduationprojectkotlin.logic
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
+import com.example.graduationprojectkotlin.logic.model.Comment
 import com.example.graduationprojectkotlin.logic.model.Course
 import com.example.graduationprojectkotlin.logic.model.CourseResponse
 import com.example.graduationprojectkotlin.logic.model.Task
@@ -43,4 +44,19 @@ object Repository {
         emit(result as Result<List<Task>>)
     }
 
+    fun getComments(query: String)= liveData(Dispatchers.IO) {
+        val result = try {
+            val commentResponse = GraduationNetwork.getComments(query)
+            if (commentResponse.status == "ok") {
+                val comments = commentResponse.comments
+                Result.success(comments)
+            } else {
+                Result.failure(RuntimeException("response status is ${commentResponse.status}"))
+            }
+        } catch (e: Exception) {
+            Result.failure<List<com.example.graduationprojectkotlin.logic.model.Comment>>(e)
+        }
+        //TODO as需要么？
+        emit(result as Result<List<Comment>>)
+    }
 }

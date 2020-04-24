@@ -1,5 +1,6 @@
 package com.example.graduationprojectkotlin.logic.network
 
+import com.example.graduationprojectkotlin.logic.network.GraduationNetwork.await
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,10 +18,18 @@ object GraduationNetwork {
 
 
     //创建UserService接口的动态代理对象
-    private val userService = ServiceCreator.create(UserService::class.java)
+    private val userService = ServiceCreator.create(CourseService::class.java)
 
     //搜索课程信息 TODO 添加参数
     suspend fun searchCourses(query:String) = userService.searchCourses(query).await()
+
+
+    //创建UserService接口的动态代理对象
+    private val commentService = ServiceCreator.create(CommentService::class.java)
+
+    //搜索课程信息 TODO 添加参数
+    suspend fun getComments(query:String) = commentService.getComments(query).await()
+
 
     private suspend fun <T> Call<T>.await():T{
         return suspendCoroutine { continuation ->

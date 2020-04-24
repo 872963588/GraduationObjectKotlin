@@ -29,12 +29,6 @@ class TaskFragment (): Fragment() {
 
     val viewModel by lazy { ViewModelProvider(this).get(TaskViewModel::class.java) }
 
-    private val taskList1 = ArrayList<Task>()
-    private val taskList2 = ArrayList<Task>()
-    private val taskList3 = ArrayList<Task>()
-
-    //private lateinit var viewModel: TaskViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,8 +38,6 @@ class TaskFragment (): Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
-        initTasks()
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
 
@@ -81,127 +73,6 @@ class TaskFragment (): Fragment() {
 
         })
 
-    }
-
-
-
-
-
-
-
-    //测试用的数据
-    private fun initTasks() {
-        repeat(3) {
-            taskList1.add(
-                Task(
-                    "观看视频",
-                    "2020年4月15日 16点15分",
-                    "观看视频后发表感悟"
-                )
-            )
-            taskList1.add(
-                Task(
-                    "观看视频",
-                    "2020年4月15日 16点15分",
-                    "观看视频后发表感悟"
-                )
-            )
-            taskList1.add(
-                Task(
-                    "预习",
-                    "2020年4月15日 16点15分",
-                    "预习下一章的知识"
-                )
-            )
-            taskList1.add(
-                Task(
-                    "观看视频",
-                    "2020年4月15日 16点15分",
-                    "观看视频后发表感悟"
-                )
-            )
-            taskList1.add(
-                Task(
-                    "预习",
-                    "2020年4月15日 16点15分",
-                    "预习下一章的知识"
-                )
-            )
-        }
-        repeat(3) {
-            taskList2.add(
-                Task(
-                    "预习",
-                    "2020年4月15日 16点15分",
-                    "预习下一章的知识"
-                )
-            )
-            taskList2.add(
-                Task(
-                    "预习",
-                    "2020年4月15日 16点15分",
-                    "预习下一章的知识"
-                )
-            )
-            taskList2.add(
-                Task(
-                    "预习",
-                    "2020年4月15日 16点15分",
-                    "预习下一章的知识"
-                )
-            )
-            taskList2.add(
-                Task(
-                    "预习",
-                    "2020年4月15日 16点15分",
-                    "预习下一章的知识"
-                )
-            )
-            taskList2.add(
-                Task(
-                    "预习",
-                    "2020年4月15日 16点15分",
-                    "预习下一章的知识"
-                )
-            )
-        }
-        repeat(3) {
-            taskList3.add(
-                Task(
-                    "预习",
-                    "2020年4月15日 16点15分",
-                    "预习下一章的知识"
-                )
-            )
-            taskList3.add(
-                Task(
-                    "预习",
-                    "2020年4月15日 16点15分",
-                    "预习下一章的知识"
-                )
-            )
-            taskList3.add(
-                Task(
-                    "预习",
-                    "2020年4月15日 16点15分",
-                    "预习下一章的知识"
-                )
-            )
-            taskList3.add(
-                Task(
-                    "预习",
-                    "2020年4月15日 16点15分",
-                    "预习下一章的知识"
-                )
-            )
-            taskList3.add(
-                Task(
-                    "预习",
-                    "2020年4月15日 16点15分",
-                    "预习下一章的知识"
-                )
-            )
-        }
     }
 
 }
