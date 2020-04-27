@@ -19,23 +19,23 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/img_user_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/ic_launcher_background" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="User Name" />
         </LinearLayout>
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/btn_help"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"

@@ -4,13 +4,13 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_t_b_sneihe.*
 
-class UserInfoActivity : AppCompatActivity() {
+class TBSneiheActivity : AppCompatActivity() {
 
     companion object{
-        fun actionStart(context: Context,userId :Int) {
-            val intent = Intent(context, UserInfoActivity::class.java)
-            intent.putExtra("userId", userId)
+        fun actionStart(context: Context) {
+            val intent = Intent(context, TBSneiheActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
@@ -18,8 +18,7 @@ class UserInfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_info)
+        setContentView(R.layout.activity_t_b_sneihe)
+        webView.loadUrl("http://debugtbs.qq.com")
     }
-
-
 }

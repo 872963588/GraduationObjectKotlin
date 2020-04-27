@@ -9,8 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationprojectkotlin.R
 import com.example.graduationprojectkotlin.logic.model.Task
-import com.example.graduationprojectkotlin.ui.study.OthersFileActivity
-import com.example.graduationprojectkotlin.ui.study.Tbs1Activity
+import com.example.graduationprojectkotlin.ui.study.ReaderActivity
 
 class TaskAdapter(val fragment: Fragment, private val taskList: List<Task>) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
@@ -49,7 +48,7 @@ class TaskAdapter(val fragment: Fragment, private val taskList: List<Task>) :
 //                val position = viewHolder.adapterPosition
 //                val intent = Intent(parent.context, Tbs1Activity::class.java)
 //                    .apply { putExtra("extra_data", taskList[position].task_url) }
-                val intent = Intent(parent.context, OthersFileActivity::class.java)
+                val intent = Intent(parent.context, ReaderActivity::class.java)
                     .apply { putExtra("extra_data", "http://47.93.59.28:8080/AppService/123.docx") }
                 fragment.startActivity(intent)
             }

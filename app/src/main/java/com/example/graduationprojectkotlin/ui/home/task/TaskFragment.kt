@@ -1,5 +1,6 @@
 package com.example.graduationprojectkotlin.ui.home.task
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.graduationprojectkotlin.CourseInfoActivity
+import com.example.graduationprojectkotlin.GraduationProjectKotlinApplication
 
 import com.example.graduationprojectkotlin.R
 import com.example.graduationprojectkotlin.logic.model.Task
@@ -41,7 +44,13 @@ class TaskFragment (): Fragment() {
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
 
-        val url = "http://122.51.224.44/AppService/ruanjian.jpg"
+        course_info_layout.setOnClickListener{
+//            //TODO why此处上下文可能为空
+//            context?.let { it1 -> CourseInfoActivity.actionStart(it1,"课程名") }
+
+            CourseInfoActivity.actionStart(GraduationProjectKotlinApplication.context,"课程名")
+        }
+        val url = "http://47.93.59.28:8080/AppService/ruanjian.jpg"
         Glide.with(this).load(url).into(imageView)
 
 //        //TODO 接收BUNDLE

@@ -1,7 +1,6 @@
 package com.example.graduationprojectkotlin
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
@@ -11,8 +10,6 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import com.example.graduationprojectkotlin.ui.course.SearchCourseActivity
-import com.example.graduationprojectkotlin.ui.study.TBSActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -31,9 +28,7 @@ class MainActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
-        button.setOnClickListener { val intent = Intent(this, TBSActivity::class.java)
-        startActivity(intent)
-        }
+
 
         if (ContextCompat.checkSelfPermission(
                 GraduationProjectKotlinApplication.context,
@@ -46,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 1
             )
         } else {
-
+            //TODO do something
         }
 
     }

@@ -18,46 +18,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="stateHidden|adjustResize">
-        <activity android:name=".ui.study.OthersFileActivity"></activity>
-        <activity android:name=".ui.course.SearchCourseActivity" />
-        <activity android:name=".ui.study.Tbs1Activity" />
-
+        <activity android:name=".CreateTaskActivity"></activity>
+        <activity android:name=".CreateCourseActivity" />
+        <activity android:name=".TBSneiheActivity" />
+        <activity android:name=".CourseInfoActivity" />
+        <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.study.ReaderActivity" />
         <activity
-            android:name="com.tencent.smtt.sdk.VideoActivity"
-            android:alwaysRetainTaskState="true"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="false"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="com.tencent.smtt.tbs.video.PLAY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".ui.study.TBSActivity"
+            android:name=".ui.study.VideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity android:name=".SearchActivity">
-            <meta-data
-                android:name="android.app.default_searchable"
-                android:value=".SearchableActivity" />
-        </activity>
-
-        <provider
-            android:name=".MySuggestionProvider"
-            android:authorities="com.example.graduationprojectkotlin.MySuggestionProvider" />
-
         <activity android:name=".UserInfoActivity" />
-        <activity android:name=".SearchableActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-        </activity>
         <activity android:name=".ui.study.StudyActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

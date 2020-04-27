@@ -13,11 +13,11 @@ class StudyActivity : AppCompatActivity() {
         val fragmentManager=supportFragmentManager
         val transaction =fragmentManager.beginTransaction()
         //TODO 不同的文件格式加载不同的Fragment
-        when (extraData) {
-            "text"->transaction.add(R.id.fragmentLayout,DocFragment())
-            "mp4"->transaction.add(R.id.fragmentLayout, VideoFragment())
-            else->transaction.add(R.id.fragmentLayout, VideoFragment())
-        }
+//        when (extraData) {
+//            "text"->transaction.add(R.id.fragmentLayout,DocFragment())
+//            "mp4"->transaction.add(R.id.fragmentLayout, VideoFragment())
+//            else->transaction.add(R.id.fragmentLayout, VideoFragment())
+//        }
 
         transaction.commit()
     }

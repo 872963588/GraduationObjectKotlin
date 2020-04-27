@@ -6,9 +6,9 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/home" />
     <item
-        android:id="@+id/messageFragment"
+        android:id="@+id/coursesFragment"
         android:icon="@drawable/ic_message_black_24dp"
-        android:title="@string/message" />
+        android:title="Courses" />
     <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_settings_black_24dp"
