@@ -6,6 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface TaskService {
-    @GET("AppService/task")
-    fun getTasks(@Query("query")query:String):Call<TaskResponse>
+    @GET("Study/task")
+    fun getTasks(@Query("courseId")query:Int):Call<TaskResponse>
 }

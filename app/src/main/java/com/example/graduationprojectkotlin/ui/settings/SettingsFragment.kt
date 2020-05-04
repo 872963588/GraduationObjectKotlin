@@ -6,12 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.example.graduationprojectkotlin.GraduationProjectKotlinApplication
+import com.bumptech.glide.Glide
+import com.example.graduationprojectkotlin.*
+import com.example.graduationprojectkotlin.logic.Repository
 
-import com.example.graduationprojectkotlin.R
-import com.example.graduationprojectkotlin.TBSneiheActivity
-import com.example.graduationprojectkotlin.UserInfoActivity
+import com.example.graduationprojectkotlin.logic.dao.UserDao
 import kotlinx.android.synthetic.main.settings_fragment.*
 
 class SettingsFragment : Fragment() {
@@ -40,6 +41,14 @@ class SettingsFragment : Fragment() {
         btn_help.setOnClickListener {
             TBSneiheActivity.actionStart(GraduationProjectKotlinApplication.context)
         }
+        btn_exit.setOnClickListener {
+            Repository.deleteUser()
+            Toast.makeText(GraduationProjectKotlinApplication.context,"删除成功",Toast.LENGTH_SHORT).show()
+        }
+        tv_user_name.text = Repository.getSavedUser().userName
+
+        val url = Repository.getSavedUser().userImg
+        Glide.with(this).load(url).into(img_user_img)
     }
 
 }

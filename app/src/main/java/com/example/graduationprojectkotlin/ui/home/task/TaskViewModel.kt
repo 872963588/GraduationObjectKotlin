@@ -11,13 +11,13 @@ class TaskViewModel : ViewModel() {
     // TODO: Implement the ViewModel
     val taskList = ArrayList<Task>()
 
-    private val searchLiveData = MutableLiveData<String>()
+    private val courseLiveData = MutableLiveData<Int>()
 
-    val taskLiveData = Transformations.switchMap(searchLiveData){ query->
+    val taskLiveData = Transformations.switchMap(courseLiveData){ query->
         Repository.getTasks(query)
     }
 
-    fun searchTasks(query: String) {
-        searchLiveData.value = query
+    fun searchTasks(courseId: Int) {
+        courseLiveData.value = courseId
     }
 }

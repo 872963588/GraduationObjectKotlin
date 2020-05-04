@@ -60,8 +60,8 @@ class TaskAdapter(val fragment: Fragment, private val taskList: List<Task>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = taskList[position]
-        holder.taskDetail.text = task.task_detail
-        holder.taskName.text = task.task_name
-        holder.taskTime.text = task.task_time
+        holder.taskDetail.text = task.taskDetail
+        holder.taskName.text = task.taskName
+        holder.taskTime.text = task.taskTime
     }
 }

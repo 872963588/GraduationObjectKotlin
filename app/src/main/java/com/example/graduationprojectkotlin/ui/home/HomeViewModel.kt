@@ -14,7 +14,7 @@ class HomeViewModel : ViewModel() {
     val courseList = ArrayList<Course>()
 
     val courseLiveData = Transformations.switchMap(searchLiveData){query->
-        Repository.searchCourses(query)
+        Repository.searchCourses("1")
     }
 
     fun searchCourses(query: String) {

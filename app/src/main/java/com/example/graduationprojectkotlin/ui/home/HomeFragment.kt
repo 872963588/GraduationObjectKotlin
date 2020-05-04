@@ -46,9 +46,9 @@ class HomeFragment : Fragment() {
             }
 
             override fun createFragment(position: Int) = getTaskFragment(
-                position,
-                viewModel.courseList[position].course_name,
-                viewModel.courseList[position].course_img
+                viewModel.courseList[position].id,
+                viewModel.courseList[position].courseDetail,
+                viewModel.courseList[position].courseImg
             )
         }
         viewPager2.adapter = adapter
@@ -57,7 +57,7 @@ class HomeFragment : Fragment() {
         //TODO tab.text设置为课程名
         //TODO 此处没有观察者 可以和数据一起更新么？？？
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
-            tab.text = viewModel.courseList[position].course_name
+            tab.text = viewModel.courseList[position].courseName
 //            when (position) {
 //                0 -> tab.text = "Home"
 //                1 -> tab.text = "Message"
@@ -82,13 +82,13 @@ class HomeFragment : Fragment() {
         })
     }
 
-    fun getTaskFragment(position: Int, courseName: String, courseImg: String): Fragment {
+    fun getTaskFragment(id: Int, courseDetail: String, courseImg: String): Fragment {
         val taskFragment = TaskFragment()
         //TODO 因为Fragment的问题，传递参数使用BUNDLE
         val bundle = Bundle()
-        bundle.putInt("course", position)
-        bundle.putString("courseName", courseName)
-        bundle.putString("courseImg", courseImg)
+        bundle.putInt("courseId", id)
+        bundle.putString("courseDetail", courseDetail)
+        bundle.putString("courseImg",courseImg)
         taskFragment.arguments = bundle
         return taskFragment
     }

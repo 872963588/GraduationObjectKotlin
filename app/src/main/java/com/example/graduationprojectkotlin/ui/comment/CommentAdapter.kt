@@ -33,8 +33,8 @@ class CommentAdapter(val fragment: Fragment,val commentList: List<Comment>): Rec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val comment=commentList[position]
-        holder.userName.text=comment.user_name
-        holder.commentTime.text=comment.comment_time
-        holder.commentDetail.text=comment.comment_detail
+        holder.userName.text=comment.userId.toString()
+        holder.commentTime.text=comment.commentTime
+        holder.commentDetail.text=comment.commentDetail
     }
 }

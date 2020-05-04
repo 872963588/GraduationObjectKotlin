@@ -6,6 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface CommentService {
-    @GET("AppService/comment")
+    @GET("Study/comment")
     fun getComments(@Query("query")query:String): Call<CommentResponse>
 }

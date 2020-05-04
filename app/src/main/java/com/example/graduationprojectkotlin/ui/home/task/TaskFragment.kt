@@ -50,8 +50,11 @@ class TaskFragment (): Fragment() {
 
             CourseInfoActivity.actionStart(GraduationProjectKotlinApplication.context,"课程名")
         }
-        val url = "http://47.93.59.28:8080/AppService/ruanjian.jpg"
+        //val url = "http://47.93.59.28:8080/AppService/ruanjian.jpg"
+        val url = arguments?.getString("courseImg")
         Glide.with(this).load(url).into(imageView)
+
+        tv_course_name.text=arguments?.getString("courseDetail")
 
 //        //TODO 接收BUNDLE
 //        //TODO 获取课程名，为空的话怎么办？
@@ -68,7 +71,7 @@ class TaskFragment (): Fragment() {
         val adapter = TaskAdapter(this,viewModel.taskList)
         recyclerView.adapter=adapter
 
-        viewModel.searchTasks("")
+        arguments?.getInt("courseId")?.let { viewModel.searchTasks(it) }
         viewModel.taskLiveData.observe(viewLifecycleOwner, Observer { result ->
             val tasks = result.getOrNull()
             if (tasks != null) {
