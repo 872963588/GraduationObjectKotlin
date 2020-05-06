@@ -4,14 +4,14 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
-class CourseInfoActivity : AppCompatActivity() {
-
+/*
+注册页面
+ */
+class RegisterActivity : AppCompatActivity() {
 
     companion object{
-        fun actionStart(context: Context, courseId: Int) {
-            val intent = Intent(context, CourseInfoActivity::class.java)
-            intent.putExtra("courseId", courseId)
+        fun actionStart(context: Context) {
+            val intent = Intent(context, RegisterActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
@@ -19,10 +19,6 @@ class CourseInfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_course_info)
-
-
+        setContentView(R.layout.activity_register)
     }
-
-
 }

@@ -58,11 +58,6 @@ class HomeFragment : Fragment() {
         //TODO 此处没有观察者 可以和数据一起更新么？？？
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             tab.text = viewModel.courseList[position].courseName
-//            when (position) {
-//                0 -> tab.text = "Home"
-//                1 -> tab.text = "Message"
-//                else -> tab.text = "Home"
-//            }
         }.attach()
 
         //viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)

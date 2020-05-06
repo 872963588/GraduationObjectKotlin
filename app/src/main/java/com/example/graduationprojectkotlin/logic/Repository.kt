@@ -4,17 +4,38 @@ import android.util.Log
 import androidx.lifecycle.liveData
 import com.example.graduationprojectkotlin.logic.dao.UserDao
 import com.example.graduationprojectkotlin.logic.model.*
+import com.example.graduationprojectkotlin.logic.network.FileService
 import com.example.graduationprojectkotlin.logic.network.GraduationNetwork
 import com.example.graduationprojectkotlin.logic.network.ServiceCreator
 import com.example.graduationprojectkotlin.logic.network.ServiceCreator.create
 import com.example.graduationprojectkotlin.logic.network.UserService
 import kotlinx.coroutines.Dispatchers
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 
 import retrofit2.Response
 
 object Repository {
+
+    fun upload(partList:List<MultipartBody.Part>){
+        val fileService = ServiceCreator.create(FileService::class.java)
+        fileService.upload(partList).enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.d("123465", "失败1")
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                val userLoginResponse = response.body()
+                if (userLoginResponse != null) {
+                    Log.d("123456", userLoginResponse.toString())
+                }
+            }
+
+        })
+    }
 
     //    fun userLogin(userEmail: String, userPassword: String)= liveData(Dispatchers.IO) {
 //        val result = try {

@@ -48,7 +48,7 @@ class TaskFragment (): Fragment() {
 //            //TODO why此处上下文可能为空
 //            context?.let { it1 -> CourseInfoActivity.actionStart(it1,"课程名") }
 
-            CourseInfoActivity.actionStart(GraduationProjectKotlinApplication.context,"课程名")
+            CourseInfoActivity.actionStart(GraduationProjectKotlinApplication.context,1)
         }
         //val url = "http://47.93.59.28:8080/AppService/ruanjian.jpg"
         val url = arguments?.getString("courseImg")

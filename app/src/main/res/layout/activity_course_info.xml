@@ -12,46 +12,52 @@
             android:orientation="vertical" >
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/iv_picture"
                 android:layout_width="248dp"
                 android:layout_height="242dp"
                 app:srcCompat="@drawable/book" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/owner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="创建者：" />
 
+            <TextView
+                android:id="@+id/tv_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btn_join"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="加入/进入课程课程" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="课程简介：" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/tv_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨发大水范德萨范德萨范德萨" />
+                android:text="123456" />
 
             <fragment
                 android:id="@+id/fragment4"
                 android:name="com.example.graduationprojectkotlin.ui.comment.CommentFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="138dp" />
 
         </LinearLayout>
 

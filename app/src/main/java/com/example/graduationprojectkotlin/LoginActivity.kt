@@ -10,7 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.graduationprojectkotlin.logic.Repository
 import com.example.graduationprojectkotlin.logic.model.LoginInfo
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_register.*
 
+/*
+登录页面 登陆成功后finish
+ */
 class LoginActivity : AppCompatActivity() {
 
     companion object{
@@ -40,6 +44,12 @@ class LoginActivity : AppCompatActivity() {
             Repository.userLogin(userEmail,userPassword)
             MainActivity.actionStart(GraduationProjectKotlinApplication.context)
             finish()
+        }
+
+        //点击注册按钮跳转到登陆页面
+        tv_register.setOnClickListener {
+            RegisterActivity.actionStart(GraduationProjectKotlinApplication.context)
+
         }
 //        viewModel.userLogin()
            // val result=
