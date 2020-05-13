@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="stateHidden|adjustResize">
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".ManageTaskActivity"></activity>
+        <activity android:name=".AlterPasswordActivity" />
+        <activity android:name=".ui.register.RegisterActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".CreateTaskActivity" />
         <activity android:name=".CreateCourseActivity" />
         <activity android:name=".TBSneiheActivity" />

@@ -7,9 +7,11 @@
     tools:context=".ui.home.HomeFragment">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
@@ -40,5 +42,27 @@
             android:layout_height="match_parent" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_no_course"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_study"
+            android:layout_centerHorizontal="true"
+            android:text="您还没有学习课程哦，点击下面的按钮去选择课程吧~" />
+
+        <Button
+            android:id="@+id/btn_study"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="查看课程" />
+    </RelativeLayout>
 
 </FrameLayout>

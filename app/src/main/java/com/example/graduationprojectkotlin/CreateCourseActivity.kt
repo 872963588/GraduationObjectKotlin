@@ -7,7 +7,11 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.graduationprojectkotlin.logic.Repository
 import kotlinx.android.synthetic.main.activity_create_course.*
 import okhttp3.MediaType
@@ -26,13 +30,53 @@ class CreateCourseActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
     }
+    val viewModel by lazy{ ViewModelProvider(this).get(CreateCourseViewModel::class.java)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_course)
 
-        //TODO 记得传递owner
+        val adapter = ArrayAdapter<String>(GraduationProjectKotlinApplication.context,android.R.layout.simple_spinner_item,data)
+        spinner.adapter = adapter
 
+        //TODO 记得传递owner
+        btn_create.setOnClickListener {
+            //TODO 验证
+            //val number=et_number.text.toString()
+            val name=et_name.text.toString()
+            val detail=et_detail.text.toString()
+            //val email=et_email.text.toString()
+            //val school=et_school.text.toString()
+            //val sex=et_sex.text.toString()
+            val sort=spinner.selectedItem.toString()
+            viewModel.create(name,detail,sort)
+        }
+
+        viewModel.statusLiveData.observe(this, Observer { result ->
+            val statusResponse = result.getOrNull()
+            if (statusResponse != null) {
+                if (statusResponse.status == "true") {
+                    Toast.makeText(GraduationProjectKotlinApplication.context,"创建成功", Toast.LENGTH_SHORT).show()
+                    finish()
+                } else {
+                    Toast.makeText(
+                        GraduationProjectKotlinApplication.context,
+                        "创建失败，请检查网络",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    result.exceptionOrNull()?.printStackTrace()
+                }
+            }
+
+        })
+
+
+
+
+
+
+
+        //TODO 这里的图片 记得学啊   记得传递owner
         button3.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
@@ -76,5 +120,20 @@ class CreateCourseActivity : AppCompatActivity() {
 
     }
 
-
+    private val data = listOf(
+        "哲学",
+        "经济学",
+        "法学",
+        "教育学",
+        "文学",
+        "历史学",
+        "理学",
+        "工学",
+        "农学",
+        "医学",
+        "军事学",
+        "管理学",
+        "艺术学",
+        "其他"
+    )
 }

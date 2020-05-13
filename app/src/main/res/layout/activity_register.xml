@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity"
+    tools:context=".ui.register.RegisterActivity"
     tools:layout_editor_absoluteX="112dp"
     tools:layout_editor_absoluteY="5dp">
 
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/number"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -64,6 +64,15 @@
         android:text="邮箱"
         app:layout_constraintEnd_toEndOf="@+id/school"
         app:layout_constraintTop_toBottomOf="@+id/tv_password_again" />
+
+    <TextView
+        android:id="@+id/sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="7dp"
+        android:text="TextView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/et_sex"
+        app:layout_constraintEnd_toStartOf="@+id/et_sex" />
 
     <Button
         android:id="@+id/btn_register"
@@ -154,4 +163,16 @@
         android:text="哈哈"
         app:layout_constraintStart_toEndOf="@+id/school"
         app:layout_constraintTop_toTopOf="@+id/school" />
+
+    <EditText
+        android:id="@+id/et_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="39dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="男"
+        app:layout_constraintBottom_toTopOf="@+id/et_school"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

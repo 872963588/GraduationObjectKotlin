@@ -3,6 +3,7 @@ package com.example.graduationprojectkotlin.ui.search
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,14 +17,26 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var adapter:CourseAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        //TODO 开启键盘输入位置就变是什么鬼？
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
         val layoutManager=LinearLayoutManager(this)
         recyclerView.layoutManager=layoutManager
         adapter = CourseAdapter(viewModel.courseList)
         recyclerView.adapter=adapter
+        et_search.addTextChangedListener { editable ->
+            val content = editable.toString()
+            if (content.isNotEmpty()) {
+                viewModel.searchCourses(content)
+            } else {
+                viewModel.courseList.clear()
+                adapter.notifyDataSetChanged()
+            }
+        }
 
-        viewModel.searchcourses("query")
+        //viewModel.searchCourses("query")
         viewModel.courseLiveData.observe(this, Observer { result ->
             val courses = result.getOrNull()
             if (courses != null) {

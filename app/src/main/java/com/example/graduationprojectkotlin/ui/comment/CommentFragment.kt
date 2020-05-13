@@ -30,6 +30,7 @@ class CommentFragment : Fragment() {
         return inflater.inflate(R.layout.comment_fragment, container, false)
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         // TODO: Use the ViewModel
@@ -43,7 +44,9 @@ class CommentFragment : Fragment() {
             )
         recyclerView.adapter=adapter
 
-        viewModel.searchComments("")
+
+        //TODO 判断任务还是课程
+        arguments?.getInt("id")?.let { viewModel.searchComments("task",it) }
         viewModel.commentLiveData.observe(viewLifecycleOwner, Observer { result ->
             val comments = result.getOrNull()
             if (comments != null) {
@@ -52,7 +55,7 @@ class CommentFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             } else {
                 //TODO 这里的逻辑写一下
-                Toast.makeText(activity, "未能查询到任何评论", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "未能查询到任何评论", Toast.LENGTH_SHORT).show()
                 result.exceptionOrNull()?.printStackTrace()
             }
 

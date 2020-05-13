@@ -28,7 +28,7 @@
                     android:src="@android:drawable/btn_star_big_on" />
 
                 <TextView
-                    android:id="@+id/tv_course_name"
+                    android:id="@+id/tv_task_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -39,7 +39,19 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="676dp"
+                android:visibility="gone">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/tv_no_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="该课程教师还未发布任务"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 

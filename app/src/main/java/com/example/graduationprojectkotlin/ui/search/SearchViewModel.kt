@@ -16,7 +16,7 @@ class SearchViewModel: ViewModel() {
         Repository.searchCourses(query)
     }
 
-    fun searchcourses(query: String) {
+    fun searchCourses(query: String) {
         searchLiveData.value = query
     }
     

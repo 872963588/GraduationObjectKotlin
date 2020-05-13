@@ -11,8 +11,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.graduationprojectkotlin.CreateCourseActivity
 import com.example.graduationprojectkotlin.GraduationProjectKotlinApplication
 import com.example.graduationprojectkotlin.R
+import com.example.graduationprojectkotlin.ui.courses.all.AllCoursesFragment
 import com.example.graduationprojectkotlin.ui.courses.created.CoursesCreatedFragment
 import com.example.graduationprojectkotlin.ui.courses.ofstudy.CoursesOfStudyFragment
+import com.example.graduationprojectkotlin.ui.search.SearchActivity
 import com.example.graduationprojectkotlin.ui.study.VideoActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.courses_fragment.*
@@ -42,7 +44,7 @@ class CoursesFragment : Fragment() {
         // TODO: Use the ViewModel
 
         button.setOnClickListener {
-            val intent = Intent(context, VideoActivity::class.java)
+            val intent = Intent(context, SearchActivity::class.java)
             startActivity(intent)
         }
 
@@ -53,7 +55,7 @@ class CoursesFragment : Fragment() {
         viewPager2.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int {
 //                    return 3
-                return 2
+                return 3
             }
 
             override fun createFragment(position: Int) = getFragment(position)
@@ -62,8 +64,9 @@ class CoursesFragment : Fragment() {
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             //tab.text = viewModel.courseList[position].course_name
             when (position) {
-                0 -> tab.text = "创建的课程"
-                1 -> tab.text = "学习的课程"
+                0 -> tab.text = "所有课程"
+                1 -> tab.text = "创建的课程"
+                2 -> tab.text = "学习的课程"
                 // else -> tab.text = "Home"
             }
         }.attach()
@@ -77,8 +80,10 @@ class CoursesFragment : Fragment() {
 //        bundle.putString("courseImg", courseImg)
 //        fragment.arguments = bundle
         return when (position) {
-            0 -> CoursesCreatedFragment()
-            1 -> CoursesOfStudyFragment()
+            0 -> AllCoursesFragment()
+            1 -> CoursesCreatedFragment()
+            2 -> CoursesOfStudyFragment()
+
             else -> CoursesOfStudyFragment()
         }
     }

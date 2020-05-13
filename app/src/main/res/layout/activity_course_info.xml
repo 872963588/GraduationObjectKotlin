@@ -17,6 +17,24 @@
                 android:layout_height="242dp"
                 app:srcCompat="@drawable/book" />
 
+            <Button
+                android:id="@+id/btn_alter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="修改课程信息" />
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="删除课程" />
+
+            <Button
+                android:id="@+id/btn_manage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="管理课程任务" />
+
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
@@ -39,7 +57,7 @@
                 android:id="@+id/btn_join"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="加入/进入课程课程" />
+                android:text="加入/退出课程" />
 
             <TextView
                 android:id="@+id/detail"
@@ -53,11 +71,12 @@
                 android:layout_height="wrap_content"
                 android:text="123456" />
 
-            <fragment
-                android:id="@+id/fragment4"
-                android:name="com.example.graduationprojectkotlin.ui.comment.CommentFragment"
+            <FrameLayout
+                android:id="@+id/comment_frag"
                 android:layout_width="match_parent"
-                android:layout_height="138dp" />
+                android:layout_height="match_parent">
+
+            </FrameLayout>
 
         </LinearLayout>
 

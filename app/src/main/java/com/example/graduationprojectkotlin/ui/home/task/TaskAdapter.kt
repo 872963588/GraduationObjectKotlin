@@ -1,23 +1,23 @@
 package com.example.graduationprojectkotlin.ui.home.task
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.graduationprojectkotlin.GraduationProjectKotlinApplication
 import com.example.graduationprojectkotlin.R
 import com.example.graduationprojectkotlin.logic.model.Task
 import com.example.graduationprojectkotlin.ui.study.ReaderActivity
 
-class TaskAdapter(val fragment: Fragment, private val taskList: List<Task>) :
+class TaskAdapter(private val taskList: List<Task>) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val taskName: TextView = view.findViewById(R.id.tv_course_name)
-        val taskTime: TextView = view.findViewById(R.id.tv_course_detail)
-        val taskDetail: TextView = view.findViewById(R.id.tv_course_owner)
+        val taskName: TextView = view.findViewById(R.id.tv_task_name)
+        val taskTime: TextView = view.findViewById(R.id.tv_time)
+        val taskDetail: TextView = view.findViewById(R.id.tv_task_detail)
         //val taskUrl: TextView = view.findViewById(R.id.tv)
     }
 
@@ -48,9 +48,11 @@ class TaskAdapter(val fragment: Fragment, private val taskList: List<Task>) :
 //                val position = viewHolder.adapterPosition
 //                val intent = Intent(parent.context, Tbs1Activity::class.java)
 //                    .apply { putExtra("extra_data", taskList[position].task_url) }
-                val intent = Intent(parent.context, ReaderActivity::class.java)
-                    .apply { putExtra("extra_data", "http://47.93.59.28:8080/AppService/123.docx") }
-                fragment.startActivity(intent)
+
+//                val intent = Intent(parent.context, ReaderActivity::class.java)
+//                    .apply { putExtra("extra_data", "http://47.93.59.28:8080/AppService/123.docx") }
+//                fragment.startActivity(intent)
+            ReaderActivity.actionStart(GraduationProjectKotlinApplication.context)
             }
 
         return viewHolder
@@ -60,8 +62,11 @@ class TaskAdapter(val fragment: Fragment, private val taskList: List<Task>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = taskList[position]
-        holder.taskDetail.text = task.taskDetail
-        holder.taskName.text = task.taskName
-        holder.taskTime.text = task.taskTime
+        holder.taskDetail.text = task.detail
+        holder.taskName.text = task.name
+        holder.taskTime.text = task.time
+        holder.taskName.setOnClickListener {
+            Toast.makeText(GraduationProjectKotlinApplication.context,"${task.id}",Toast.LENGTH_SHORT).show()
+        }
     }
 }

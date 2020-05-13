@@ -33,6 +33,17 @@ import kotlin.properties.Delegates
 
 class ReaderActivity : AppCompatActivity(), TbsReaderView.ReaderCallback {
 
+    companion object{
+        fun actionStart(context: Context) {
+            val intent = Intent(context, ReaderActivity::class.java)
+            //TODO 这里不对的话 就用本人的信息
+            // intent.putExtra("userId", userId)
+            intent.putExtra("extra_data", "http://47.93.59.28:8080/AppService/123.docx")
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+    }
+
     lateinit var mFileUrl: String
     lateinit var mFileName: String
     lateinit var mTbsReaderView: TbsReaderView

@@ -10,13 +10,22 @@ class CommentViewModel : ViewModel() {
     // TODO: Implement the ViewModel
     val commentList = ArrayList<Comment>()
 
+    var type=""
+
+    //判断获取课程还是获取任务的评论  map?
+
     private val searchLiveData = MutableLiveData<String>()
 
     val commentLiveData = Transformations.switchMap(searchLiveData){ query->
-        Repository.getComments(query)
+        if (this.type == "course"){
+        Repository.getCourseComments(query)
+        }else{
+            Repository.getTaskComments(query)
+        }
     }
 
-    fun searchComments(query: String) {
-        searchLiveData.value = query
+    fun searchComments(type:String,query: Int) {
+        this.type = type
+        searchLiveData.value = query.toString()
     }
 }
