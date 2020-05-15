@@ -29,19 +29,23 @@ class CreateTaskActivity : AppCompatActivity() {
             //val number=et_number.text.toString()
             val name=et_name.text.toString()
             val detail=et_detail.text.toString()
-            val time = editText.text.toString()
+            //val time = editText.text.toString()
             //val email=et_email.text.toString()
             //val school=et_school.text.toString()
             //val sex=et_sex.text.toString()
-            viewModel.create(name,time,detail)
+            viewModel.create(name,detail)
         }
 
         viewModel.statusLiveData.observe(this, Observer { result ->
             val statusResponse = result.getOrNull()
             if (statusResponse != null) {
                 if (statusResponse.status == "true") {
+                    val intent= Intent("com.example.my.refresh")
+                    sendBroadcast(intent)
                     Toast.makeText(GraduationProjectKotlinApplication.context,"创建成功", Toast.LENGTH_SHORT).show()
                     //MainActivity.actionStart(GraduationProjectKotlinApplication.context)
+
+
                     finish()
                     // onBackPressed()
                 } else {

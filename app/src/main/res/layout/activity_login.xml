@@ -24,12 +24,24 @@
         android:layout_marginBottom="158dp"
         android:ems="10"
         android:hint="请输入邮箱"
-        android:inputType="textPersonName|textEmailAddress"
+        android:inputType="textEmailAddress"
         android:text="0@qq.com"
         app:layout_constraintBottom_toBottomOf="@+id/et_user_password"
         app:layout_constraintEnd_toEndOf="@+id/et_user_password"
         app:layout_constraintStart_toStartOf="@+id/et_user_password"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_email_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="13dp"
+        android:text="请输入正确的用户名"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/et_user_email"
+        app:layout_constraintTop_toBottomOf="@+id/et_user_email" />
 
     <EditText
         android:id="@+id/et_user_password"
@@ -44,6 +56,17 @@
         app:layout_constraintStart_toStartOf="@+id/btn_login"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextFields" />
+
+    <TextView
+        android:id="@+id/tv_password_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="密码不能为空"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/btn_login"
+        app:layout_constraintTop_toBottomOf="@+id/et_user_password" />
 
     <TextView
         android:id="@+id/tv_register"

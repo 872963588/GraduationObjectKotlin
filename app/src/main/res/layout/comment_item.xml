@@ -74,24 +74,4 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="10dp" />
 
-    <TextView
-        android:id="@+id/tv_comment_support_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="33"
-        app:layout_constraintBottom_toBottomOf="@+id/imgbtn_support"
-        app:layout_constraintEnd_toStartOf="@+id/imgbtn_support"
-        app:layout_constraintTop_toTopOf="@+id/imgbtn_support" />
-
-    <ImageButton
-        android:id="@+id/imgbtn_support"
-        android:layout_width="41dp"
-        android:layout_height="24dp"
-        android:layout_margin="10dp"
-        android:background="@color/cardview_shadow_end_color"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_user_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_thumb_up_black_24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

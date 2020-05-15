@@ -11,7 +11,7 @@ interface TaskService {
 
     @FormUrlEncoded
     @POST("Study/task?type=add")
-    fun add(@Field("name") name: String, @Field("time") time: String,@Field("detail") detail: String,@Field("courseId") courseId: Int): Call<StatusResponse>
+    fun add(@Field("name") name: String, @Field("detail") detail: String,@Field("courseId") courseId: Int): Call<StatusResponse>
 
 
     @FormUrlEncoded

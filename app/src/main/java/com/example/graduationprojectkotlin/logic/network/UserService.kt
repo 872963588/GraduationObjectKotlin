@@ -1,9 +1,7 @@
 package com.example.graduationprojectkotlin.logic.network
 
-import com.example.graduationprojectkotlin.logic.model.LoginInfo
 import com.example.graduationprojectkotlin.logic.model.StatusResponse
-import com.example.graduationprojectkotlin.logic.model.User
-import com.example.graduationprojectkotlin.logic.model.UserLoginResponse
+import com.example.graduationprojectkotlin.logic.model.UserInfoResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -12,10 +10,14 @@ interface UserService {
 //    @POST("Study/user")
 //    fun userLogin(@Body loginInfo: LoginInfo): Call<User>
 
+    //获取指定Id的用户信息
+    @GET("Study/user")
+    fun getInfo(@Query("id")id:Int):Call<UserInfoResponse>
+
     //登录
     @FormUrlEncoded
     @POST("Study/login")
-    fun login(@Field("email") email: String, @Field("password") password: String): Call<UserLoginResponse>
+    fun login(@Field("email") email: String, @Field("password") password: String): Call<UserInfoResponse>
 
     //注册
     @FormUrlEncoded

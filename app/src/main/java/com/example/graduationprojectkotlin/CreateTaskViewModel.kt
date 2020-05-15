@@ -13,13 +13,13 @@ class CreateTaskViewModel : ViewModel(){
 
 
     val statusLiveData = Transformations.switchMap(taskInfoLiveData) { taskInfo ->
-        Repository.addTask(taskInfo.name,taskInfo.time,taskInfo.detail,taskInfo.courseId)
+        Repository.addTask(taskInfo.name,taskInfo.detail,taskInfo.courseId)
     }
 
-    fun create(name:String,time:String,detail:String) {
+    fun create(name:String,detail:String) {
         //TODO 获取值改一下
         val courseId=1
-        taskInfoLiveData.value = CreateTaskInfo(name,time,detail,courseId)
+        taskInfoLiveData.value = CreateTaskInfo(name,detail,courseId)
     }
 
 

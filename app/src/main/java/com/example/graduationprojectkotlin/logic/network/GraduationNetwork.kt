@@ -21,7 +21,7 @@ object GraduationNetwork {
 
     //搜索课程任务信息 TODO 添加参数
     suspend fun getTasks(query: Int) = taskService.getTasks(query).await()
-    suspend fun addTasks(name: String,time: String,detail: String,courseId: Int) = taskService.add(name,time,detail,courseId).await()
+    suspend fun addTasks(name: String,detail: String,courseId: Int) = taskService.add(name,detail,courseId).await()
     suspend fun deleteTasks(query: Int) = taskService.delete(query).await()
 
 
@@ -37,6 +37,7 @@ object GraduationNetwork {
         userService.update(id,number, name, email, school, sex).await()
     suspend fun alterPassword(id: String,password: String) =
         userService.alterPassword(id,password).await()
+    suspend fun getUserInfo(query: Int) = userService.getInfo(query).await()
 
 
 
@@ -60,6 +61,11 @@ object GraduationNetwork {
     //搜索课程信息 TODO 添加参数
     suspend fun getCourseComments(query: String) = commentService.getCourseComments(query).await()
     suspend fun getTaskComments(query: String) = commentService.getTaskComments(query).await()
+    suspend fun addCourseComment(userId: String,detail:String,courseId: String) = commentService.addCourseComment(userId,detail,courseId).await()
+    suspend fun addTaskComment(userId: String,detail:String,taskId: String) = commentService.addTaskComment(userId,detail,taskId).await()
+
+
+
 
 
     private suspend fun <T> Call<T>.await(): T {

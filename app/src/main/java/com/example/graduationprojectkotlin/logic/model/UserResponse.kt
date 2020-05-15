@@ -7,7 +7,7 @@ data class UserResponse(
 
 )
 
-data class UserLoginResponse(
+data class UserInfoResponse(
     val status: String,
     val user: User
 )

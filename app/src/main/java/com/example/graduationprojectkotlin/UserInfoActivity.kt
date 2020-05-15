@@ -12,12 +12,11 @@ import com.example.graduationprojectkotlin.logic.Repository
 import com.example.graduationprojectkotlin.logic.util.StringUtil
 import com.example.graduationprojectkotlin.logic.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_user_info.*
-import kotlinx.android.synthetic.main.settings_fragment.*
 
 class UserInfoActivity : AppCompatActivity() {
 
-    companion object{
-        fun actionStart(context: Context,userId :Int) {
+    companion object {
+        fun actionStart(context: Context, userId: Int) {
             val intent = Intent(context, UserInfoActivity::class.java)
             //TODO 这里不对的话 就用本人的信息
             intent.putExtra("userId", userId)
@@ -26,7 +25,7 @@ class UserInfoActivity : AppCompatActivity() {
         }
     }
 
-    val viewModel by lazy{ ViewModelProvider(this).get(UserInfoViewModel::class.java)}
+    val viewModel by lazy { ViewModelProvider(this).get(UserInfoViewModel::class.java) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,24 +34,33 @@ class UserInfoActivity : AppCompatActivity() {
 
         //TODO 获取指定的用户信息
 
-        //获取保存的用户信息
-        val user = Repository.getSavedUser()
+        val userId = intent.getIntExtra("userId", 0)
 
-        //填充用户信息
-        val url = user.picture
-        Glide.with(this).load(url).into(iv_picture)
-        et_number.setText(user.number)
-        et_name.setText(user.name)
-        et_email.setText(user.email)
-        et_school.setText(user.school)
-        et_sex.setText(user.sex)
+        if (userId == 0) {
+            //获取保存的用户信息
+            val user = Repository.getSavedUser()
+
+            //填充用户信息
+            val url = user.picture
+            Glide.with(this).load(url).into(iv_picture)
+            et_number.setText(user.number)
+            et_name.setText(user.name)
+            et_email.setText(user.email)
+            et_school.setText(user.school)
+            et_sex.setText(user.sex)
+
+
+        } else {
+            viewModel.getUserInfo(userId)
+        }
+
 
         btn_alter.setOnClickListener {
-            val number=et_number.text.toString()
-            val name=et_name.text.toString()
-            val email=et_email.text.toString()
-            val school=et_school.text.toString()
-            val sex=et_sex.text.toString()
+            val number = et_number.text.toString()
+            val name = et_name.text.toString()
+            val email = et_email.text.toString()
+            val school = et_school.text.toString()
+            val sex = et_sex.text.toString()
 
             if (StringUtil.isEmpty(number)) {
                 ToastUtil.show("学号不能为空")
@@ -67,11 +75,11 @@ class UserInfoActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            viewModel.getUserInfo(number, name, email, school, sex)
+            viewModel.setUserInfo(number, name, email, school, sex)
         }
 
 
-        viewModel.userLiveData.observe(this, Observer { result ->
+        viewModel.statusLiveData.observe(this, Observer { result ->
             val statusResponse = result.getOrNull()
             if (statusResponse != null) {
                 if (statusResponse.status == "true") {
@@ -95,6 +103,26 @@ class UserInfoActivity : AppCompatActivity() {
             }
 
         })
+
+
+        viewModel.userLiveData.observe(this, Observer { result ->
+            val user = result.getOrNull()
+            if (user != null) {
+                val url = user.picture
+                Glide.with(this).load(url).into(iv_picture)
+                et_number.setText(user.number)
+                et_name.setText(user.name)
+                et_email.setText(user.email)
+                et_school.setText(user.school)
+                et_sex.setText(user.sex)
+            } else {
+                Toast.makeText(this, "获取失败，请查看网络", Toast.LENGTH_SHORT).show()
+                result.exceptionOrNull()?.printStackTrace()
+            }
+
+        })
+
+
     }
 
 

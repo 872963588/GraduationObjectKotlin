@@ -20,5 +20,4 @@ class ManageTaskViewModel  : ViewModel(){
         courseLiveData.value = courseId
     }
 
-
 }

@@ -7,7 +7,7 @@
     tools:context=".CreateTaskActivity">
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/tv_course_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="33dp"
@@ -23,8 +23,8 @@
         android:layout_marginBottom="48dp"
         android:text="任务描述："
         app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintStart_toStartOf="@+id/tv_course_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_course_name" />
 
     <EditText
         android:id="@+id/et_name"
@@ -35,7 +35,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
-        app:layout_constraintStart_toEndOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/tv_course_name"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -84,26 +84,14 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_add_file"
         app:layout_constraintStart_toEndOf="@+id/textView" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="272dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="这里用数据库时间"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/btn_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginStart="118dp"
+        android:layout_marginTop="331dp"
         android:text="发布任务"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

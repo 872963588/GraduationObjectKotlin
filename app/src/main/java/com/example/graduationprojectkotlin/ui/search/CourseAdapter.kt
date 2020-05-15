@@ -14,9 +14,9 @@ class CourseAdapter(val courseList: List<Course>) :
     RecyclerView.Adapter<CourseAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val courseName: TextView = view.findViewById(R.id.tv_task_name)
-        val courseDetail: TextView = view.findViewById(R.id.tv_time)
-        val courseOwner: TextView = view.findViewById(R.id.tv_task_detail)
+        val courseName: TextView = view.findViewById(R.id.tv_course_name)
+        val courseDetail: TextView = view.findViewById(R.id.tv_course_detail)
+        val courseOwner: TextView = view.findViewById(R.id.tv_course_owner)
         //val courseUrl: TextView = view.findViewById(R.id.tv)
     }
 

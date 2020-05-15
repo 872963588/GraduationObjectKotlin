@@ -3,20 +3,24 @@ package com.example.graduationprojectkotlin.ui.comment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.graduationprojectkotlin.GraduationProjectKotlinApplication
 import com.example.graduationprojectkotlin.R
+import com.example.graduationprojectkotlin.UserInfoActivity
 import com.example.graduationprojectkotlin.logic.model.Comment
 
-class CommentAdapter(val fragment: Fragment,val commentList: List<Comment>): RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
+class CommentAdapter(val fragment: Fragment, private val commentList: List<Comment>): RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) :RecyclerView.ViewHolder(view){
 
         val userName:TextView=view.findViewById(R.id.tv_user_name)
         val commentTime:TextView=view.findViewById(R.id.tv_comment_time)
         val commentDetail:TextView=view.findViewById(R.id.tv_comment_detail)
-        //val userImg:ImageView=view.findViewById(R.id.)
+        val userImg: ImageView =view.findViewById(R.id.user_img)
 
     }
 
@@ -33,8 +37,14 @@ class CommentAdapter(val fragment: Fragment,val commentList: List<Comment>): Rec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val comment=commentList[position]
-        holder.userName.text=comment.userId.toString()
-        holder.commentTime.text=comment.commentTime
-        holder.commentDetail.text=comment.commentDetail
+        holder.userName.text=comment.name
+        holder.commentTime.text=comment.time
+        holder.commentDetail.text=comment.detail
+        val url = comment.picture
+        Glide.with(fragment).load(url).into(holder.userImg)
+
+        holder.itemView.setOnClickListener {
+            UserInfoActivity.actionStart(GraduationProjectKotlinApplication.context,comment.userId)
+        }
     }
 }

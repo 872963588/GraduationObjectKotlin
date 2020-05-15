@@ -1,10 +1,17 @@
 package com.example.graduationprojectkotlin.logic
 
+import android.widget.Toast
 import androidx.lifecycle.liveData
+import com.example.graduationprojectkotlin.GraduationProjectKotlinApplication
 import com.example.graduationprojectkotlin.logic.dao.UserDao
 import com.example.graduationprojectkotlin.logic.model.*
 import com.example.graduationprojectkotlin.logic.network.GraduationNetwork
+import com.example.graduationprojectkotlin.logic.network.ServiceCreator
+import com.example.graduationprojectkotlin.logic.network.TaskService
+import com.example.graduationprojectkotlin.logic.network.UserService
 import kotlinx.coroutines.Dispatchers
+import retrofit2.Call
+import retrofit2.Callback
 
 import retrofit2.Response
 
@@ -40,10 +47,10 @@ object Repository {
                 Result.failure(RuntimeException("response status is ${userLoginResponse.status}"))
             }
         } catch (e: Exception) {
-            Result.failure<UserLoginResponse>(e)
+            Result.failure<UserInfoResponse>(e)
         }
         //TODO as需要么？
-        emit(result as Result<UserLoginResponse>)
+        emit(result as Result<UserInfoResponse>)
     }
 
     fun register(number: String,name: String,password: String,email: String,school: String, sex: String) = liveData(Dispatchers.IO) {
@@ -102,6 +109,22 @@ object Repository {
         emit(result as Result<StatusResponse>)
     }
 
+    fun getUserInfo(query: Int) = liveData(Dispatchers.IO) {
+        val result = try {
+            val userInfoResponse = GraduationNetwork.getUserInfo(query)
+            if (userInfoResponse.status == "true") {
+                val user = userInfoResponse.user
+                Result.success(user)
+            } else {
+                Result.failure(RuntimeException("response status is ${userInfoResponse.status}"))
+            }
+        } catch (e: Exception) {
+            Result.failure<User>(e)
+        }
+        //TODO as需要么？
+        emit(result as Result<User>)
+    }
+
     fun createCourse(name:String,detail:String,owner:String,sort:String) = liveData(Dispatchers.IO) {
         val result = try {
             val statusResponse = GraduationNetwork.createCourse(name,detail,owner,sort)
@@ -137,6 +160,61 @@ object Repository {
         //TODO as需要么？
         emit(result as Result<StatusResponse>)
     }
+
+    fun deleteTask1(taskId:Int) {
+        val taskService = ServiceCreator.create(TaskService::class.java)
+        taskService.delete(taskId).enqueue(object : Callback<StatusResponse> {
+                override fun onFailure(call: Call<StatusResponse>, t: Throwable) {
+                    Toast.makeText(GraduationProjectKotlinApplication.context,"请求失败,请检查网络",Toast.LENGTH_SHORT).show()
+                    t.printStackTrace()
+                }
+
+                override fun onResponse(
+                    call: Call<StatusResponse>,
+                    response: Response<StatusResponse>
+                ) {
+                    val statusResponse = response.body()
+                    if (statusResponse != null) {
+                        if (statusResponse.status=="true") {
+                            Toast.makeText(GraduationProjectKotlinApplication.context,"删除成功",Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(GraduationProjectKotlinApplication.context,"删除失败",Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+            })
+
+    }
+
+//    fun getName(userId:Int): String {
+//        val userService = ServiceCreator.create(UserService::class.java)
+//        var a="不知道"
+//        userService.getInfo(userId).enqueue(object : Callback<UserInfoResponse> {
+//            override fun onFailure(call: Call<UserInfoResponse>, t: Throwable) {
+//                Toast.makeText(GraduationProjectKotlinApplication.context,"请求失败,请检查网络",Toast.LENGTH_SHORT).show()
+//                t.printStackTrace()
+//            }
+//
+//            override fun onResponse(
+//                call: Call<UserInfoResponse>,
+//                response: Response<UserInfoResponse>
+//            ) {
+//                val userInfoResponse = response.body()
+//                if (userInfoResponse != null) {
+//                    if (userInfoResponse.status=="true") {
+//                        a=userInfoResponse.user.name
+//                        Toast.makeText(GraduationProjectKotlinApplication.context,a,Toast.LENGTH_SHORT).show()
+//                    } else {
+//                        //Toast.makeText(GraduationProjectKotlinApplication.context,"删除失败",Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
+//
+//        })
+//        return a
+//
+//    }
 //    fun userLogin(email: String, password: String): Boolean {
 //        val userService = ServiceCreator.create(UserService::class.java)
 //        var isLogin = false//子线程没办法
@@ -247,6 +325,8 @@ object Repository {
         emit(result as Result<Course>)
     }
 
+
+
     //fun userLogin(data:UserLoginInfo):
 
     //TODO 获取课程任务
@@ -284,9 +364,9 @@ object Repository {
         emit(result as Result<StatusResponse>)
     }
 
-    fun addTask(name: String,time: String,detail: String,courseId: Int) = liveData(Dispatchers.IO) {
+    fun addTask(name: String,detail: String,courseId: Int) = liveData(Dispatchers.IO) {
         val result = try {
-            val statusResponse = GraduationNetwork.addTasks(name,time,detail,courseId)
+            val statusResponse = GraduationNetwork.addTasks(name,detail,courseId)
             //判断是否得到数据
             if (statusResponse.status == "true") {
                 //saveUser(userLoginResponse.user)
@@ -335,6 +415,42 @@ object Repository {
         //TODO as需要么？
         emit(result as Result<List<Comment>>)
     }
+
+    fun addCourseComment(userId: String,detail:String,courseId: String) = liveData(Dispatchers.IO) {
+        val result = try {
+            val statusResponse = GraduationNetwork.addCourseComment(userId,detail,courseId)
+            //判断是否得到数据
+            if (statusResponse.status == "true") {
+                Result.success(statusResponse)
+            } else {
+                //TODO 没有获取到数据或请求失败提示
+                Result.failure(RuntimeException("response status is ${statusResponse.status}"))
+            }
+        } catch (e: Exception) {
+            Result.failure<StatusResponse>(e)
+        }
+        //TODO as需要么？
+        emit(result as Result<StatusResponse>)
+    }
+
+    fun addTaskComment(userId: String,detail:String,taskId: String) = liveData(Dispatchers.IO) {
+        val result = try {
+            val statusResponse = GraduationNetwork.addCourseComment(userId,detail,taskId)
+            //判断是否得到数据
+            if (statusResponse.status == "true") {
+                Result.success(statusResponse)
+            } else {
+                //TODO 没有获取到数据或请求失败提示
+                Result.failure(RuntimeException("response status is ${statusResponse.status}"))
+            }
+        } catch (e: Exception) {
+            Result.failure<StatusResponse>(e)
+        }
+        //TODO as需要么？
+        emit(result as Result<StatusResponse>)
+    }
+
+
 
 
 

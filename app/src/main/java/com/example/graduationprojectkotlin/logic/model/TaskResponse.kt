@@ -14,7 +14,7 @@ data class Task(
 
 data class CreateTaskInfo(
     val name: String,
-    val time: String,
+    //val time: String,
     //TODO 抓紧学呀  val picture: String,
     val detail: String,
     val courseId: Int

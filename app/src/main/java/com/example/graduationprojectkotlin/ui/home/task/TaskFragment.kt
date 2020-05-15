@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -53,7 +52,7 @@ class TaskFragment (): Fragment() {
         Glide.with(this).load(url).into(imageView)
 
         //课程简介
-        tv_task_name.text=arguments?.getString("courseDetail")
+        tv_course_name.text=arguments?.getString("courseDetail")
 
 //        //TODO 接收BUNDLE
 //        //TODO 获取课程名，为空的话怎么办？
@@ -68,7 +67,7 @@ class TaskFragment (): Fragment() {
 //       // val adapter = TaskAdapter(taskList1)
 //        recyclerView.adapter=adapter
 
-        val adapter = TaskAdapter(viewModel.taskList)
+        val adapter = TaskAdapter(GraduationProjectKotlinApplication.context,viewModel.taskList,false)
         recyclerView.adapter=adapter
 
         arguments?.getInt("courseId")?.let { viewModel.searchTasks(it) }

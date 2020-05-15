@@ -21,22 +21,25 @@
                 android:id="@+id/btn_alter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="修改课程信息" />
+                android:text="修改课程信息"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_delete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="删除课程" />
+                android:text="删除课程"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_manage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="管理课程任务" />
+                android:text="管理课程任务"
+                android:visibility="gone" />
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/tv_course_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
@@ -57,7 +60,8 @@
                 android:id="@+id/btn_join"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="加入/退出课程" />
+                android:text="加入/退出课程"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/detail"

@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.graduationprojectkotlin.*
 import com.example.graduationprojectkotlin.logic.Repository
+import com.example.graduationprojectkotlin.ui.login.LoginActivity
 
 import kotlinx.android.synthetic.main.settings_fragment.*
 
@@ -41,10 +43,26 @@ class SettingsFragment : Fragment() {
             TBSneiheActivity.actionStart(GraduationProjectKotlinApplication.context)
         }
         btn_exit.setOnClickListener {
-            Repository.deleteUser()//TODO这里应该是退出的单词吧
             //TODO 弹出再次确认提示
+            activity?.let { it1 ->
+                AlertDialog.Builder(it1).apply {
+                    setTitle("提示")
+                    setMessage("确定要退出登录么？")
+                    setCancelable(true)
+                    setPositiveButton("确定"){dialog,which->
+                        Repository.deleteUser()//TODO这里应该是退出的单词吧
+                        LoginActivity.actionStart(GraduationProjectKotlinApplication.context)
+                        it1.finish()
+                    }
+                    setNegativeButton("取消"){dialog,which->
+                    }
+                    show()
+                }
+            }
+
+
             //Toast.makeText(GraduationProjectKotlinApplication.context,"删除成功",Toast.LENGTH_SHORT).show()
-            activity?.finish()
+
         }
         btn_alter_info.setOnClickListener {
             //TODO 这里的参数改一下 不用改  没有用到 userId

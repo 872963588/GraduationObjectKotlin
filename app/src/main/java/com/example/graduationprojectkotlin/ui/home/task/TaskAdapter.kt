@@ -1,29 +1,36 @@
 package com.example.graduationprojectkotlin.ui.home.task
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationprojectkotlin.GraduationProjectKotlinApplication
 import com.example.graduationprojectkotlin.R
+import com.example.graduationprojectkotlin.logic.Repository
 import com.example.graduationprojectkotlin.logic.model.Task
 import com.example.graduationprojectkotlin.ui.study.ReaderActivity
 
-class TaskAdapter(private val taskList: List<Task>) :
+class TaskAdapter(val context:Context,private val taskList: List<Task>,val isManage:Boolean) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val taskName: TextView = view.findViewById(R.id.tv_task_name)
-        val taskTime: TextView = view.findViewById(R.id.tv_time)
-        val taskDetail: TextView = view.findViewById(R.id.tv_task_detail)
+        val taskName: TextView = view.findViewById(R.id.tv_course_name)
+        val taskTime: TextView = view.findViewById(R.id.tv_course_detail)
+        val taskDetail: TextView = view.findViewById(R.id.tv_course_owner)
         //val taskUrl: TextView = view.findViewById(R.id.tv)
+        val imgBtn: ImageButton=view.findViewById(R.id.imgBtn_delete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
         val viewHolder = ViewHolder(view)
+
 //        viewHolder.itemView.setOnClickListener {
 //            val position = viewHolder.adapterPosition
 //            val task = taskList[position]
@@ -43,6 +50,11 @@ class TaskAdapter(private val taskList: List<Task>) :
 //                .show()
 //        }
         //TODO 传给StudyActivity一个值（用来判断加载什么类型的Fragment）
+        if (isManage){
+            viewHolder.imgBtn.visibility = View.VISIBLE
+        }
+
+
         viewHolder.itemView.setOnClickListener {
 
 //                val position = viewHolder.adapterPosition
@@ -66,7 +78,23 @@ class TaskAdapter(private val taskList: List<Task>) :
         holder.taskName.text = task.name
         holder.taskTime.text = task.time
         holder.taskName.setOnClickListener {
-            Toast.makeText(GraduationProjectKotlinApplication.context,"${task.id}",Toast.LENGTH_SHORT).show()
+            Toast.makeText(GraduationProjectKotlinApplication.context,"",Toast.LENGTH_SHORT).show()
+        }
+        holder.imgBtn.setOnClickListener {
+            AlertDialog.Builder(context).apply {
+                setTitle("提示")
+                setMessage("确定要删除该任务么？")
+                setCancelable(true)
+                setPositiveButton("确定"){dialog,which->
+                    Repository.deleteTask1(task.id)
+                    //TODO 刷新
+                    val intent= Intent("com.example.my.refresh")
+                    context.sendBroadcast(intent)
+                }
+                setNegativeButton("取消"){dialog,which->
+                }
+                show()
+            }
         }
     }
 }
