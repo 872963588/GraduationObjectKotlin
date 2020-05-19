@@ -17,6 +17,11 @@ import com.example.graduationprojectkotlin.R
 import com.example.graduationprojectkotlin.logic.Repository
 import com.example.graduationprojectkotlin.ui.search.CourseAdapter
 import kotlinx.android.synthetic.main.courses_created_fragment.*
+import kotlinx.android.synthetic.main.courses_created_fragment.linearLayout
+import kotlinx.android.synthetic.main.courses_created_fragment.listView
+import kotlinx.android.synthetic.main.courses_created_fragment.recyclerView
+import kotlinx.android.synthetic.main.courses_created_fragment.tv_no_course
+import kotlinx.android.synthetic.main.courses_of_study_fragment.*
 
 class CoursesCreatedFragment : Fragment() {
 
@@ -40,6 +45,7 @@ class CoursesCreatedFragment : Fragment() {
 
         val listAdapter = ArrayAdapter<String>(GraduationProjectKotlinApplication.context,android.R.layout.simple_list_item_1,viewModel.sortList)
         listView.adapter = listAdapter
+        listView.setSelector(R.color.colorAccent)
         listView.setOnItemClickListener {parent,view,position,id->
             viewModel.sort=viewModel.sortList[position]
             viewModel.searchCourses(Repository.getSavedUser().id.toString())

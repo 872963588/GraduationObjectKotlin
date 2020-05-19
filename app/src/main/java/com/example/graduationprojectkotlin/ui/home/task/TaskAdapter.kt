@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationprojectkotlin.GraduationProjectKotlinApplication
 import com.example.graduationprojectkotlin.R
+import com.example.graduationprojectkotlin.TaskInfoActivity
 import com.example.graduationprojectkotlin.logic.Repository
 import com.example.graduationprojectkotlin.logic.model.Task
 import com.example.graduationprojectkotlin.ui.study.ReaderActivity
@@ -64,7 +65,7 @@ class TaskAdapter(val context:Context,private val taskList: List<Task>,val isMan
 //                val intent = Intent(parent.context, ReaderActivity::class.java)
 //                    .apply { putExtra("extra_data", "http://47.93.59.28:8080/AppService/123.docx") }
 //                fragment.startActivity(intent)
-            ReaderActivity.actionStart(GraduationProjectKotlinApplication.context)
+            TaskInfoActivity.actionStart(GraduationProjectKotlinApplication.context)
             }
 
         return viewHolder

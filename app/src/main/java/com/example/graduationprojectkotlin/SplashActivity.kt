@@ -31,19 +31,16 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         }
-        time.schedule(task, 2000)
-        button2.setOnClickListener {
-            if (Repository.isUserSaved()) {
-                MainActivity.actionStart(GraduationProjectKotlinApplication.context)
-            } else {
-                LoginActivity.actionStart(GraduationProjectKotlinApplication.context)
-            }
+        time.schedule(task, 1500)
+//        button2.setOnClickListener {
+//            if (Repository.isUserSaved()) {
+//                MainActivity.actionStart(GraduationProjectKotlinApplication.context)
+//            } else {
+//                LoginActivity.actionStart(GraduationProjectKotlinApplication.context)
+//            }
+//
+//        }
 
-        }
-
-        editText2.setOnClickListener{
-            editText2.setText(textView2.text)
-        }
 
     }
 

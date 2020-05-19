@@ -40,7 +40,9 @@ class CoursesOfStudyFragment : Fragment() {
         // TODO: Use the ViewModel
         val listAdapter = ArrayAdapter<String>(GraduationProjectKotlinApplication.context,android.R.layout.simple_list_item_1,viewModel.sortList)
         listView.adapter = listAdapter
+        listView.setSelector(R.color.colorAccent)
         listView.setOnItemClickListener {parent,view,position,id->
+
             viewModel.sort=viewModel.sortList[position]
             viewModel.searchCourses(Repository.getSavedUser().id.toString())
         }

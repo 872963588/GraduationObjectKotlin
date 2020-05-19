@@ -1,23 +1,33 @@
 package com.example.graduationprojectkotlin
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentResolver
+import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.BaseColumns
+import android.provider.DocumentsContract
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.graduationprojectkotlin.GraduationProjectKotlinApplication.Companion.context
 import com.example.graduationprojectkotlin.logic.Repository
+import com.example.graduationprojectkotlin.logic.util.PathUtil
 import kotlinx.android.synthetic.main.activity_create_course.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Retrofit
 import java.io.File
 
 
@@ -31,6 +41,7 @@ class CreateCourseActivity : AppCompatActivity() {
         }
     }
     val viewModel by lazy{ ViewModelProvider(this).get(CreateCourseViewModel::class.java)}
+    lateinit var uri :Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,9 +66,12 @@ class CreateCourseActivity : AppCompatActivity() {
         viewModel.statusLiveData.observe(this, Observer { result ->
             val statusResponse = result.getOrNull()
             if (statusResponse != null) {
-                if (statusResponse.status == "true") {
+                if (statusResponse.status != "false") {
                     Toast.makeText(GraduationProjectKotlinApplication.context,"创建成功", Toast.LENGTH_SHORT).show()
-                    finish()
+
+                    //上传图片
+                    upload(uri,statusResponse.status)
+                    //finish()
                 } else {
                     Toast.makeText(
                         GraduationProjectKotlinApplication.context,
@@ -66,14 +80,15 @@ class CreateCourseActivity : AppCompatActivity() {
                     ).show()
                     result.exceptionOrNull()?.printStackTrace()
                 }
+            }else{
+                Toast.makeText(
+                    GraduationProjectKotlinApplication.context,
+                    "创建失败，请检查网络",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         })
-
-
-
-
-
 
 
         //TODO 这里的图片 记得学啊   记得传递owner
@@ -90,29 +105,45 @@ class CreateCourseActivity : AppCompatActivity() {
         when (requestCode) {
             1 -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
-                    data.data?.let { uri ->
-//                        Log.d("123456", uri.toString())
-//                        Log.d("123456", uri.path)
-//                        val file=File(uri.toString())
-//                        val builder = MultipartBody.Builder()
-//                            .setType(MultipartBody.FORM)
-//                            .addFormDataPart("abc", "abc")//在这里添加服务器除了文件之外的其他参数
-//                        val imageBody =
-//                            RequestBody.create(MediaType.parse("multipart/form-data"), file)
-//                        builder.addFormDataPart("uploadfile", file.getName(), imageBody)
-//                        val parts =
-//                            builder.build().parts()
-//                        Repository.upload(parts)
-
-
-                        Log.d("123456", uri.getAuthority())
-                        val bitmap = getBitmapFromUri(uri)
-                        imageButton.setImageBitmap(bitmap)
-
-                    }
+//                    data.data?.let { uri ->
+//
+//                    }
+                    uri = data.data!!
+                    val bitmap = getBitmapFromUri(uri)
+                    imageButton.setImageBitmap(bitmap)
                 }
             }
         }
+    }
+
+    fun upload(uri :Uri,name:String){
+        //                        Log.d("123456", uri.toString())
+//                        Log.d("123456", uri.path)
+//                        Log.d("123456", getRealPathFromUri(context,uri))
+        val file=File(PathUtil.getRealPathFromUri(context,uri))
+        val builder = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+        //.addFormDataPart("abc", "abc")//在这里添加服务器除了文件之外的其他参数
+        val imageBody =
+            RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        //builder.addFormDataPart("uploadfile", file.getName(), imageBody)
+
+        val name1 = file.getName()
+        val int=name1.lastIndexOf(".")
+        val name3 =name+name1.substring(int)
+
+
+        builder.addFormDataPart("uploadfile",name3, imageBody)
+        val parts =
+            builder.build().parts()
+        Repository.uploadImg(parts)
+
+        finish()
+
+        // Log.d("123456", uri.getAuthority())
+
+
+
     }
 
     private fun getBitmapFromUri(uri: Uri) = contentResolver.openFileDescriptor(uri, "r")?.use {
@@ -136,4 +167,7 @@ class CreateCourseActivity : AppCompatActivity() {
         "艺术学",
         "其他"
     )
+
+
+
 }

@@ -18,6 +18,9 @@ import com.example.graduationprojectkotlin.logic.Repository
 import com.example.graduationprojectkotlin.logic.util.ToastUtil
 import com.example.graduationprojectkotlin.ui.search.CourseAdapter
 import kotlinx.android.synthetic.main.all_courses_fragment.*
+import kotlinx.android.synthetic.main.all_courses_fragment.listView
+import kotlinx.android.synthetic.main.all_courses_fragment.recyclerView
+import kotlinx.android.synthetic.main.courses_of_study_fragment.*
 
 class AllCoursesFragment : Fragment() {
 
@@ -40,6 +43,7 @@ class AllCoursesFragment : Fragment() {
 
         val listAdapter = ArrayAdapter<String>(GraduationProjectKotlinApplication.context,android.R.layout.simple_list_item_1,viewModel.sortList)
         listView.adapter = listAdapter
+        listView.setSelector(R.color.colorAccent)
         listView.setOnItemClickListener {parent,view,position,id->
            // val name = viewModel.sortList[position]
             //ToastUtil.show(name)

@@ -1,17 +1,28 @@
 package com.example.graduationprojectkotlin
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.graduationprojectkotlin.logic.Repository
+import com.example.graduationprojectkotlin.logic.util.PathUtil
 import com.example.graduationprojectkotlin.logic.util.StringUtil
 import com.example.graduationprojectkotlin.logic.util.ToastUtil
+import kotlinx.android.synthetic.main.activity_create_course.*
 import kotlinx.android.synthetic.main.activity_user_info.*
+import kotlinx.android.synthetic.main.activity_user_info.et_name
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 class UserInfoActivity : AppCompatActivity() {
 
@@ -52,6 +63,13 @@ class UserInfoActivity : AppCompatActivity() {
 
         } else {
             viewModel.getUserInfo(userId)
+        }
+
+        iv_picture.setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "image/*"
+            startActivityForResult(intent, 1)
         }
 
 
@@ -125,5 +143,46 @@ class UserInfoActivity : AppCompatActivity() {
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            1 -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    data.data?.let { uri ->
+//                        Log.d("123456", uri.toString())
+//                        Log.d("123456", uri.path)
+//                        Log.d("123456", getRealPathFromUri(context,uri))
+                        val file= File(
+                            PathUtil.getRealPathFromUri(
+                                GraduationProjectKotlinApplication.context,uri))
+                        val builder = MultipartBody.Builder()
+                            .setType(MultipartBody.FORM)
+                        //.addFormDataPart("abc", "abc")//在这里添加服务器除了文件之外的其他参数
+                        val imageBody =
+                            RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                        //builder.addFormDataPart("uploadfile", file.getName(), imageBody)
+                        val name = file.getName()
+                        val name1=name.lastIndexOf(".")
+                        val name3 = "456"+name.substring(name1)
+                        builder.addFormDataPart("uploadfile",name3, imageBody)
+                        val parts =
+                            builder.build().parts()
+                        Repository.uploadImg(parts)
 
+
+                        Log.d("123456", uri.getAuthority())
+
+                        val bitmap = getBitmapFromUri(uri)
+                        iv_picture.setImageBitmap(bitmap)
+
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getBitmapFromUri(uri: Uri) = contentResolver.openFileDescriptor(uri, "r")?.use {
+        BitmapFactory.decodeFileDescriptor(it.fileDescriptor)
+
+    }
 }

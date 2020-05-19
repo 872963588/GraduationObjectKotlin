@@ -37,7 +37,7 @@ class SettingsFragment : Fragment() {
         // TODO: Use the ViewModel
 
         img_user_img.setOnClickListener {
-            UserInfoActivity.actionStart(GraduationProjectKotlinApplication.context,1)
+            UserInfoActivity.actionStart(GraduationProjectKotlinApplication.context,0)
         }
         btn_help.setOnClickListener {
             TBSneiheActivity.actionStart(GraduationProjectKotlinApplication.context)

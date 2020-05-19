@@ -6,14 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".UserInfoActivity">
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iv_picture"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="161dp"
+        android:layout_height="158dp"
         android:layout_marginStart="133dp"
         android:layout_marginTop="16dp"
+        android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:riv_oval="true"
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView

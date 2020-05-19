@@ -1,39 +1,56 @@
 package com.example.graduationprojectkotlin.logic
 
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.liveData
 import com.example.graduationprojectkotlin.GraduationProjectKotlinApplication
 import com.example.graduationprojectkotlin.logic.dao.UserDao
 import com.example.graduationprojectkotlin.logic.model.*
-import com.example.graduationprojectkotlin.logic.network.GraduationNetwork
-import com.example.graduationprojectkotlin.logic.network.ServiceCreator
-import com.example.graduationprojectkotlin.logic.network.TaskService
-import com.example.graduationprojectkotlin.logic.network.UserService
+import com.example.graduationprojectkotlin.logic.network.*
 import kotlinx.coroutines.Dispatchers
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 
 import retrofit2.Response
 
 object Repository {
-//    上传文件
-//    fun upload(partList: List<MultipartBody.Part>) {
-//        val fileService = ServiceCreator.create(FileService::class.java)
-//        fileService.upload(partList).enqueue(object : Callback<ResponseBody> {
-//            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-//                Log.d("123465", "失败1")
-//                t.printStackTrace()
-//            }
-//
-//            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-//                val userLoginResponse = response.body()
-//                if (userLoginResponse != null) {
-//                    Log.d("123456", userLoginResponse.toString())
-//                }
-//            }
-//
-//        })
-//    }
+   // 上传文件
+    fun uploadFile(partList: List<MultipartBody.Part>) {
+        val fileService = ServiceCreator.create(FileService::class.java)
+        fileService.uploadFile(partList).enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+               // Log.d("123465", "失败1")
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                val userLoginResponse = response.body()
+                if (userLoginResponse != null) {
+                   // Log.d("123456", userLoginResponse.toString())
+                }
+            }
+
+        })
+    }
+    fun uploadImg(partList: List<MultipartBody.Part>) {
+        val fileService = ServiceCreator.create(FileService::class.java)
+        fileService.uploadImg(partList).enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                // Log.d("123465", "失败1")
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                val userLoginResponse = response.body()
+                if (userLoginResponse != null) {
+                    // Log.d("123456", userLoginResponse.toString())
+                }
+            }
+
+        })
+    }
 
     fun login(email: String, password: String) = liveData(Dispatchers.IO) {
         val result = try {
@@ -129,7 +146,7 @@ object Repository {
         val result = try {
             val statusResponse = GraduationNetwork.createCourse(name,detail,owner,sort)
             //判断是否得到数据
-            if (statusResponse.status == "true") {
+            if (statusResponse.status != "false") {
                 //saveUser(userLoginResponse.user)
                 Result.success(statusResponse)
             } else {

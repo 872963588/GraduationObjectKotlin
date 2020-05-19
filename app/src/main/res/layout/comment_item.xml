@@ -7,7 +7,7 @@
     android:layout_margin="20dp"
     android:layout_marginBottom="20dp">
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/user_img"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -17,6 +17,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
+        app:riv_oval="true"
         app:srcCompat="@drawable/book" />
 
     <TextView

@@ -10,11 +10,11 @@ import kotlin.coroutines.suspendCoroutine
 
 object GraduationNetwork {
 
-    private val fileService = ServiceCreator.create(FileService::class.java)
-
-    //搜索课程任务信息 TODO 添加参数
-    suspend fun upload(partList: List<MultipartBody.Part>) =
-        fileService.upload(partList).await()
+//    private val fileService = ServiceCreator.create(FileService::class.java)
+//
+//    //搜索课程任务信息 TODO 添加参数
+//    suspend fun upload(partList: List<MultipartBody.Part>) =
+//        fileService.uploadImg(partList).await()
 
 
     private val taskService = ServiceCreator.create(TaskService::class.java)
