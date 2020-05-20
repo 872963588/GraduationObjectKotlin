@@ -1,5 +1,7 @@
 package com.example.graduationprojectkotlin.ui.study
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +12,15 @@ import kotlinx.android.synthetic.main.activity_video.*
 使用TBS X5内核播放视频
  */
 class VideoActivity : AppCompatActivity() {
+
+    companion object{
+        fun actionStart(context: Context,fileUrl:String) {
+            val intent = Intent(context, VideoActivity::class.java)
+            intent.putExtra("fileUrl", fileUrl)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +44,7 @@ class VideoActivity : AppCompatActivity() {
         webView.x5WebViewExtension.invokeMiscMethod("setVideoParams", data)
         //自动播放
         webView.settings.mediaPlaybackRequiresUserGesture=false
-        webView.loadUrl("http://111.231.191.26/See%20You%20Again.mp4")
+        webView.loadUrl(intent.getStringExtra("fileUrl"))
 
     }
 }

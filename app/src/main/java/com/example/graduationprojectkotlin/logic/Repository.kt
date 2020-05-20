@@ -88,13 +88,18 @@ object Repository {
         emit(result as Result<StatusResponse>)
     }
 
-    fun updateUserInfo(id:String,number: String,name: String,email: String,school: String, sex: String) = liveData(Dispatchers.IO) {
+    fun updateUserInfo(id:String,number: String,name: String,email: String,school: String, sex: String,picture: String) = liveData(Dispatchers.IO) {
         val result = try {
             val statusResponse = GraduationNetwork.updateUserInfo(id,number, name,email, school, sex)
             //判断是否得到数据
             if (statusResponse.status == "true") {
                 //TODO 更新保存的数据  加上自动刷新
-                saveUser(User(id.toInt(),number,name,email,school,sex,"http://47.93.59.28:8080/Study/images/user_default.png"))
+                if(picture.isNotEmpty()){
+                    saveUser(User(id.toInt(),number,name,email,school,sex,picture))
+                }else{
+                    saveUser(User(id.toInt(),number,name,email,school,sex,"http://47.93.59.28:8080/Study/images/user_default.png"))
+
+                }
                 Result.success(statusResponse)
             } else {
                 //TODO 没有获取到数据或请求失败提示
@@ -385,7 +390,7 @@ object Repository {
         val result = try {
             val statusResponse = GraduationNetwork.addTasks(name,detail,courseId)
             //判断是否得到数据
-            if (statusResponse.status == "true") {
+            if (statusResponse.status != "false") {
                 //saveUser(userLoginResponse.user)
                 Result.success(statusResponse)
             } else {

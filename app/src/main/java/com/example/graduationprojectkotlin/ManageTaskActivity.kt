@@ -32,7 +32,6 @@ class ManageTaskActivity : AppCompatActivity() {
     }
     val viewModel by lazy{ ViewModelProvider(this).get(ManageTaskViewModel::class.java)}
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_task)
@@ -57,7 +56,7 @@ class ManageTaskActivity : AppCompatActivity() {
 
         btn_add.setOnClickListener {
             //Repository.deleteTask(3)
-            CreateTaskActivity.actionStart(GraduationProjectKotlinApplication.context)
+            CreateTaskActivity.actionStart(GraduationProjectKotlinApplication.context,courseId)
         }
 
         val layoutManager = LinearLayoutManager(this)
@@ -91,25 +90,17 @@ class ManageTaskActivity : AppCompatActivity() {
 
     inner class RefreshReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            //ToastUtil.show("123456")
             viewModel.searchTasks(this@ManageTaskActivity.intent.getIntExtra("courseId",0))
         }
-
     }
-//    override fun onResume() {
-//        super.onResume()
-//
-//    }
-
-//    override fun onPause() {
-//        super.onPause()
-//        unregisterReceiver(receiver)
-//    }
 
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(receiver)
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        viewModel.searchTasks(this@ManageTaskActivity.intent.getIntExtra("courseId",0))
+    }
 }

@@ -95,4 +95,10 @@ class CoursesOfStudyFragment : Fragment() {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.searchCourses(Repository.getSavedUser().id.toString())
+
+    }
+
 }

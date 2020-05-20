@@ -1,5 +1,7 @@
 package com.example.graduationprojectkotlin.ui.search
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,14 @@ import com.example.graduationprojectkotlin.R
 import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity() {
+
+    companion object{
+        fun actionStart(context: Context) {
+            val intent = Intent(context, SearchActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+    }
 
     val viewModel by lazy { ViewModelProvider(this).get(SearchViewModel::class.java) }
 

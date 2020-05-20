@@ -162,15 +162,15 @@ class UserInfoActivity : AppCompatActivity() {
                             RequestBody.create(MediaType.parse("multipart/form-data"), file)
                         //builder.addFormDataPart("uploadfile", file.getName(), imageBody)
                         val name = file.getName()
-                        val name1=name.lastIndexOf(".")
-                        val name3 = "456"+name.substring(name1)
+                        val index=name.lastIndexOf(".")
+                        val name3 = "user_${Repository.getSavedUser().id}"+name.substring(index)
                         builder.addFormDataPart("uploadfile",name3, imageBody)
                         val parts =
                             builder.build().parts()
                         Repository.uploadImg(parts)
+                        viewModel.picture="http://47.93.59.28:8080/Study/images/${name3}"
 
-
-                        Log.d("123456", uri.getAuthority())
+                       // Log.d("123456", uri.getAuthority())
 
                         val bitmap = getBitmapFromUri(uri)
                         iv_picture.setImageBitmap(bitmap)

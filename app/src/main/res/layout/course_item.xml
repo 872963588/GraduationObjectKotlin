@@ -24,7 +24,7 @@
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/book" />
+            app:srcCompat="@drawable/course_default" />
 
         <LinearLayout
             android:layout_width="0dp"

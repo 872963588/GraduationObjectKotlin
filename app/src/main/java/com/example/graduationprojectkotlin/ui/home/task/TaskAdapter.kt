@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.graduationprojectkotlin.GraduationProjectKotlinApplication
 import com.example.graduationprojectkotlin.R
@@ -56,17 +57,17 @@ class TaskAdapter(val context:Context,private val taskList: List<Task>,val isMan
         }
 
 
-        viewHolder.itemView.setOnClickListener {
-
-//                val position = viewHolder.adapterPosition
-//                val intent = Intent(parent.context, Tbs1Activity::class.java)
-//                    .apply { putExtra("extra_data", taskList[position].task_url) }
-
-//                val intent = Intent(parent.context, ReaderActivity::class.java)
-//                    .apply { putExtra("extra_data", "http://47.93.59.28:8080/AppService/123.docx") }
-//                fragment.startActivity(intent)
-            TaskInfoActivity.actionStart(GraduationProjectKotlinApplication.context)
-            }
+//        viewHolder.itemView.setOnClickListener {
+//
+////                val position = viewHolder.adapterPosition
+////                val intent = Intent(parent.context, Tbs1Activity::class.java)
+////                    .apply { putExtra("extra_data", taskList[position].task_url) }
+//
+////                val intent = Intent(parent.context, ReaderActivity::class.java)
+////                    .apply { putExtra("extra_data", "http://47.93.59.28:8080/AppService/123.docx") }
+////                fragment.startActivity(intent)
+//            TaskInfoActivity.actionStart(GraduationProjectKotlinApplication.context)
+//            }
 
         return viewHolder
     }
@@ -75,12 +76,30 @@ class TaskAdapter(val context:Context,private val taskList: List<Task>,val isMan
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = taskList[position]
+        holder.itemView.setOnClickListener {
+            val intent = Intent(GraduationProjectKotlinApplication.context, TaskInfoActivity::class.java)
+                    .apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+                        putExtra("id",task.id)
+                        putExtra("fileType",task.fileType)
+
+                        putExtra("time",task.time)
+                        putExtra("name",task.name)
+                        putExtra("detail",task.detail)
+                        putExtra("fileUrl",task.fileUrl)
+                    }
+            startActivity(context,intent,null)
+        }
+
+
         holder.taskDetail.text = task.detail
         holder.taskName.text = task.name
         holder.taskTime.text = task.time
-        holder.taskName.setOnClickListener {
-            Toast.makeText(GraduationProjectKotlinApplication.context,"",Toast.LENGTH_SHORT).show()
-        }
+
+//        holder.taskName.setOnClickListener {
+//            Toast.makeText(GraduationProjectKotlinApplication.context,"",Toast.LENGTH_SHORT).show()
+//        }
         holder.imgBtn.setOnClickListener {
             AlertDialog.Builder(context).apply {
                 setTitle("提示")

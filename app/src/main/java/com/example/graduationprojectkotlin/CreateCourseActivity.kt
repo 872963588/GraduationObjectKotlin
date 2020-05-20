@@ -42,6 +42,7 @@ class CreateCourseActivity : AppCompatActivity() {
     }
     val viewModel by lazy{ ViewModelProvider(this).get(CreateCourseViewModel::class.java)}
     lateinit var uri :Uri
+    var isUpload=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,8 +71,11 @@ class CreateCourseActivity : AppCompatActivity() {
                     Toast.makeText(GraduationProjectKotlinApplication.context,"创建成功", Toast.LENGTH_SHORT).show()
 
                     //上传图片
-                    upload(uri,statusResponse.status)
-                    //finish()
+                    if(isUpload){
+                        upload(uri,statusResponse.status)
+                    }else{
+                        finish()
+                    }
                 } else {
                     Toast.makeText(
                         GraduationProjectKotlinApplication.context,
@@ -95,7 +99,7 @@ class CreateCourseActivity : AppCompatActivity() {
         button3.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.type = "*/*"
+            intent.type = "image/*"
             startActivityForResult(intent, 1)
         }
     }
@@ -108,9 +112,12 @@ class CreateCourseActivity : AppCompatActivity() {
 //                    data.data?.let { uri ->
 //
 //                    }
+
                     uri = data.data!!
+                    isUpload=true
+
                     val bitmap = getBitmapFromUri(uri)
-                    imageButton.setImageBitmap(bitmap)
+                    imageView.setImageBitmap(bitmap)
                 }
             }
         }

@@ -9,15 +9,17 @@ import com.example.graduationprojectkotlin.logic.model.User
 class UserInfoViewModel : ViewModel() {
 
     //修改用户信息
+    var picture =""
+
     private val userInfoLiveData = MutableLiveData<User>()
 
     val statusLiveData = Transformations.switchMap(userInfoLiveData){ userInfo->
-        Repository.updateUserInfo(userInfo.id.toString(),userInfo.number, userInfo.name,userInfo.email,userInfo.school,userInfo.sex)
+        Repository.updateUserInfo(userInfo.id.toString(),userInfo.number, userInfo.name,userInfo.email,userInfo.school,userInfo.sex,userInfo.picture)
     }
 
     fun setUserInfo(number: String, name: String, email: String, school: String, sex: String) {
         val id = Repository.getSavedUser().id
-        userInfoLiveData.value = User(id,number, name, email, school, sex,"")
+        userInfoLiveData.value = User(id,number, name, email, school, sex,picture)
     }
 
 

@@ -16,9 +16,9 @@ class CreateTaskViewModel : ViewModel(){
         Repository.addTask(taskInfo.name,taskInfo.detail,taskInfo.courseId)
     }
 
-    fun create(name:String,detail:String) {
+    fun create(name:String,detail:String,courseId:Int) {
         //TODO 获取值改一下
-        val courseId=1
+       // val courseId=1
         taskInfoLiveData.value = CreateTaskInfo(name,detail,courseId)
     }
 

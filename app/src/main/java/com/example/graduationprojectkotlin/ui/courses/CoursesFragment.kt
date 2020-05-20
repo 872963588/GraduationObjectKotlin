@@ -28,7 +28,6 @@ class CoursesFragment : Fragment() {
 
     val viewModel by lazy { ViewModelProvider(this).get(CoursesViewModel::class.java) }
 
-    //private lateinit var viewModel: CoursesViewModel
     private lateinit var adapter: FragmentStateAdapter
 
     override fun onCreateView(
@@ -44,25 +43,26 @@ class CoursesFragment : Fragment() {
         // TODO: Use the ViewModel
 
         button.setOnClickListener {
-            val intent = Intent(context, SearchActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(context, SearchActivity::class.java)
+//            startActivity(intent)
+            SearchActivity.actionStart(GraduationProjectKotlinApplication.context)
         }
 
         btn_create_course.setOnClickListener {
             CreateCourseActivity.actionStart(GraduationProjectKotlinApplication.context)
         }
 
-        viewPager2.adapter = object : FragmentStateAdapter(this) {
+
+        adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int {
-//                    return 3
                 return 3
             }
 
             override fun createFragment(position: Int) = getFragment(position)
         }
+        viewPager2.adapter=adapter
 
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
-            //tab.text = viewModel.courseList[position].course_name
             when (position) {
                 0 -> tab.text = "所有课程"
                 1 -> tab.text = "创建的课程"
@@ -73,12 +73,7 @@ class CoursesFragment : Fragment() {
     }
 
     fun getFragment(position: Int): Fragment {
-        //TODO 因为Fragment的问题，传递参数使用BUNDLE
-//        val bundle = Bundle()
-//        bundle.putInt("course", position)
-//        bundle.putString("courseName", courseName)
-//        bundle.putString("courseImg", courseImg)
-//        fragment.arguments = bundle
+
         return when (position) {
             0 -> AllCoursesFragment()
             1 -> CoursesCreatedFragment()

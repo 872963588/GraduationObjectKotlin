@@ -1,5 +1,9 @@
 package com.example.graduationprojectkotlin.ui.courses.created
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -96,6 +100,11 @@ class CoursesCreatedFragment : Fragment() {
             }
 
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.searchCourses(Repository.getSavedUser().id.toString())
     }
 
 }

@@ -54,11 +54,12 @@
 
             <ImageButton
                 android:id="@+id/imgBtn_delete"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:layout_weight="1"
-                android:visibility="gone"
-                app:srcCompat="@android:drawable/btn_dialog" />
+                android:background="@drawable/btn_del"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 

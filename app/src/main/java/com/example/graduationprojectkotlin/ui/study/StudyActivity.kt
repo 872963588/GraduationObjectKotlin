@@ -18,7 +18,6 @@ class StudyActivity : AppCompatActivity() {
 //            "mp4"->transaction.add(R.id.fragmentLayout, VideoFragment())
 //            else->transaction.add(R.id.fragmentLayout, VideoFragment())
 //        }
-
         transaction.commit()
     }
 }
