@@ -22,6 +22,6 @@ class ImageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
-        Glide.with(this).load(intent.getStringExtra("fileUrl")).into(imageView)
+        Glide.with(this).load(intent.getStringExtra("fileUrl")).placeholder(R.drawable.img_load).into(imageView)
     }
 }

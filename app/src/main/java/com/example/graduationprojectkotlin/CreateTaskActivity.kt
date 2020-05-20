@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -44,6 +45,7 @@ class CreateTaskActivity : AppCompatActivity() {
         }
 
         btn_create.setOnClickListener {
+            progressBar.visibility= View.VISIBLE
             //val number=et_number.text.toString()
             val name=et_name.text.toString()
             val detail=et_detail.text.toString()
@@ -60,11 +62,12 @@ class CreateTaskActivity : AppCompatActivity() {
                 if (statusResponse.status != "false") {
                     val intent= Intent("com.example.my.refresh")
                     sendBroadcast(intent)
-                    Toast.makeText(GraduationProjectKotlinApplication.context,"创建成功", Toast.LENGTH_SHORT).show()
                     //MainActivity.actionStart(GraduationProjectKotlinApplication.context)
                     if(isUpload){
                         upload(uri,statusResponse.status)
                     }else{
+                        Toast.makeText(GraduationProjectKotlinApplication.context,"创建成功", Toast.LENGTH_SHORT).show()
+
                         finish()
                     }
 
@@ -79,6 +82,30 @@ class CreateTaskActivity : AppCompatActivity() {
                     ).show()
                     result.exceptionOrNull()?.printStackTrace()
                 }
+            }
+
+        })
+
+        viewModel.isUploaded.observe(this, Observer { result ->
+            val statusResponse = result.getOrNull()
+            if (statusResponse != null) {
+                if (statusResponse.status == "true") {
+                    Toast.makeText(GraduationProjectKotlinApplication.context,"创建成功", Toast.LENGTH_SHORT).show()
+                    finish()
+                } else {
+                    Toast.makeText(
+                        GraduationProjectKotlinApplication.context,
+                        "创建失败，请检查网络",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    result.exceptionOrNull()?.printStackTrace()
+                }
+            }else{
+                Toast.makeText(
+                    GraduationProjectKotlinApplication.context,
+                    "服务器异常",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         })
@@ -114,11 +141,12 @@ class CreateTaskActivity : AppCompatActivity() {
 
 
         builder.addFormDataPart("uploadfile",name3, imageBody)
-        val parts =
-            builder.build().parts()
-        Repository.uploadFile(parts)
+//        val parts =
+//            builder.build().parts()
+//        Repository.uploadFile(parts)
 
-        finish()
+        viewModel.getParts(builder.build().parts())
+        //finish()
 
         // Log.d("123456", uri.getAuthority())
 

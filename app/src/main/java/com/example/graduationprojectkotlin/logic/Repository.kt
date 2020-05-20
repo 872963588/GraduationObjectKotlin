@@ -17,40 +17,77 @@ import retrofit2.Response
 
 object Repository {
    // 上传文件
-    fun uploadFile(partList: List<MultipartBody.Part>) {
-        val fileService = ServiceCreator.create(FileService::class.java)
-        fileService.uploadFile(partList).enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-               // Log.d("123465", "失败1")
-                t.printStackTrace()
-            }
 
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                val userLoginResponse = response.body()
-                if (userLoginResponse != null) {
-                   // Log.d("123456", userLoginResponse.toString())
-                }
+    fun uploadFile(partList: List<MultipartBody.Part>) = liveData(Dispatchers.IO) {
+        val result = try {
+            val statusResponse = GraduationNetwork.uploadFile(partList)
+            //判断是否得到数据
+            if (statusResponse.status == "true") {
+               // saveUser(userLoginResponse.user)
+                Result.success(statusResponse)
+            } else {
+                //TODO 没有获取到数据或请求失败提示
+                Result.failure(RuntimeException("response status is ${statusResponse.status}"))
             }
-
-        })
+        } catch (e: Exception) {
+            Result.failure<StatusResponse>(e)
+        }
+        //TODO as需要么？
+        emit(result as Result<StatusResponse>)
     }
-    fun uploadImg(partList: List<MultipartBody.Part>) {
-        val fileService = ServiceCreator.create(FileService::class.java)
-        fileService.uploadImg(partList).enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                // Log.d("123465", "失败1")
-                t.printStackTrace()
-            }
 
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                val userLoginResponse = response.body()
-                if (userLoginResponse != null) {
-                    // Log.d("123456", userLoginResponse.toString())
-                }
+    fun uploadImg(partList: List<MultipartBody.Part>) = liveData(Dispatchers.IO) {
+        val result = try {
+            val statusResponse = GraduationNetwork.uploadImg(partList)
+            //判断是否得到数据
+            if (statusResponse.status == "true") {
+                // saveUser(userLoginResponse.user)
+                Result.success(statusResponse)
+            } else {
+                //TODO 没有获取到数据或请求失败提示
+                Result.failure(RuntimeException("response status is ${statusResponse.status}"))
             }
-
-        })
+        } catch (e: Exception) {
+            Result.failure<StatusResponse>(e)
+        }
+        //TODO as需要么？
+        emit(result as Result<StatusResponse>)
     }
+
+//    fun uploadFile(partList: List<MultipartBody.Part>) {
+//        val fileService = ServiceCreator.create(FileService::class.java)
+//        fileService.uploadFile(partList).enqueue(object : Callback<ResponseBody> {
+//            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+//               // Log.d("123465", "失败1")
+//                t.printStackTrace()
+//            }
+//
+//            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+//                val userLoginResponse = response.body()
+//                if (userLoginResponse != null) {
+//                   // Log.d("123456", userLoginResponse.toString())
+//                }
+//            }
+//
+//        })
+//    }
+//    fun uploadImg(partList: List<MultipartBody.Part>) {
+//        val fileService = ServiceCreator.create(FileService::class.java)
+//        fileService.uploadImg(partList).enqueue(object : Callback<ResponseBody> {
+//            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+//                // Log.d("123465", "失败1")
+//                t.printStackTrace()
+//            }
+//
+//            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+//                val userLoginResponse = response.body()
+//                if (userLoginResponse != null) {
+//                    // Log.d("123456", userLoginResponse.toString())
+//                }
+//            }
+//
+//        })
+//    }
 
     fun login(email: String, password: String) = liveData(Dispatchers.IO) {
         val result = try {
@@ -97,7 +134,7 @@ object Repository {
                 if(picture.isNotEmpty()){
                     saveUser(User(id.toInt(),number,name,email,school,sex,picture))
                 }else{
-                    saveUser(User(id.toInt(),number,name,email,school,sex,"http://47.93.59.28:8080/Study/images/user_default.png"))
+                    saveUser(User(id.toInt(),number,name,email,school,sex, getSavedUser().picture))
 
                 }
                 Result.success(statusResponse)

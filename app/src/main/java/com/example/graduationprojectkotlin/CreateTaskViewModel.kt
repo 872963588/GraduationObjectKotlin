@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.graduationprojectkotlin.logic.Repository
 import com.example.graduationprojectkotlin.logic.model.CreateTaskInfo
+import okhttp3.MultipartBody
 
 class CreateTaskViewModel : ViewModel(){
 
@@ -20,6 +21,15 @@ class CreateTaskViewModel : ViewModel(){
         //TODO 获取值改一下
        // val courseId=1
         taskInfoLiveData.value = CreateTaskInfo(name,detail,courseId)
+    }
+
+
+    var parts=MutableLiveData<MutableList<MultipartBody.Part>>()
+    val isUploaded=Transformations.switchMap(parts) { parts ->
+        Repository.uploadFile(parts)
+    }
+    fun getParts(data: MutableList<MultipartBody.Part>) {
+        parts.value=data
     }
 
 

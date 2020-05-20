@@ -29,31 +29,31 @@ class TaskInfoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_task_info)
 
         val fileUrl=intent.getStringExtra("fileUrl")
-
+        val fileType=intent.getStringExtra("fileType")
         tv_time.text = intent.getStringExtra("time")
         tv_name.text = intent.getStringExtra("name")
         tv_detail.text = intent.getStringExtra("detail")
-        tv_file_type.text = intent.getStringExtra("fileType")
-        tv_file_url.text = intent.getStringExtra("fileUrl")
+//        tv_file_type.text = intent.getStringExtra("fileType")
+//        tv_file_url.text = intent.getStringExtra("fileUrl")
         if (fileUrl!=null&&fileUrl.isNotEmpty()) {
-            tv_file_name.text=tv_file_url.text.substring(tv_file_url.text.toString().lastIndexOf("/")+1)
-            linearLayout.visibility = View.VISIBLE
+//            tv_file_name.text=tv_file_url.text.substring(tv_file_url.text.toString().lastIndexOf("/")+1)
+            button_check.visibility = View.VISIBLE
         } else {
-            linearLayout.visibility = View.GONE
+            button_check.visibility = View.GONE
 
         }
-        button4.setOnClickListener {
+        button_check.setOnClickListener {
             //ReaderActivity.actionStart(GraduationProjectKotlinApplication.context)
             var a =""
 
             for(type in videoList){
-                if (tv_file_type.text == type) {
+                if (fileType == type) {
                     a="video"
                     break
                 }
             }
             for(type in imgList){
-                if (tv_file_type.text == type) {
+                if (fileType == type) {
                     a="image"
                     break
                 }

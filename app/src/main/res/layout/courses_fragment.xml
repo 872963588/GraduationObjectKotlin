@@ -22,6 +22,8 @@
             android:id="@+id/btn_create_course"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/search_button"
             android:text="创建课程" />
 
         <com.google.android.material.tabs.TabLayout

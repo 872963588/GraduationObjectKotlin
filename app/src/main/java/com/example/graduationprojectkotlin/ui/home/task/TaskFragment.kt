@@ -49,7 +49,7 @@ class TaskFragment (): Fragment() {
         //val url = "http://47.93.59.28:8080/AppService/ruanjian.jpg"
         //课程图片地址
         val url = arguments?.getString("courseImg")
-        Glide.with(this).load(url).into(imageView)
+        Glide.with(this).load(url).placeholder(R.drawable.img_load).into(imageView)
 
         //课程简介
         tv_course_name.text=arguments?.getString("courseDetail")
@@ -76,13 +76,13 @@ class TaskFragment (): Fragment() {
             if (tasks != null) {
                 if (tasks.isNotEmpty()) {
                     recyclerView.visibility=View.VISIBLE
-                    tv_no_task.visibility = View.GONE
+                    linearLayout.visibility = View.GONE
                     viewModel.taskList.clear()
                     viewModel.taskList.addAll(tasks)
                     adapter.notifyDataSetChanged()
                 } else {
                     recyclerView.visibility=View.GONE
-                    tv_no_task.visibility = View.VISIBLE
+                    linearLayout.visibility = View.VISIBLE
                     result.exceptionOrNull()?.printStackTrace()
                 }
             }

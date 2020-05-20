@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.graduationprojectkotlin.logic.Repository
 import com.example.graduationprojectkotlin.logic.model.User
+import okhttp3.MultipartBody
 
 class UserInfoViewModel : ViewModel() {
 
@@ -32,5 +33,13 @@ class UserInfoViewModel : ViewModel() {
 
     fun getUserInfo(userId:Int) {
         userIdLiveData.value=userId
+    }
+
+    var parts=MutableLiveData<MutableList<MultipartBody.Part>>()
+    val isUploaded=Transformations.switchMap(parts) { parts ->
+        Repository.uploadImg(parts)
+    }
+    fun getParts(data: MutableList<MultipartBody.Part>) {
+        parts.value=data
     }
 }

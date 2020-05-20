@@ -3,6 +3,7 @@ package com.example.graduationprojectkotlin.ui.search
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
@@ -41,6 +42,9 @@ class SearchActivity : AppCompatActivity() {
             if (content.isNotEmpty()) {
                 viewModel.searchCourses(content)
             } else {
+                recyclerView.visibility= View.GONE
+                tv_no_course.visibility=View.VISIBLE
+
                 viewModel.courseList.clear()
                 adapter.notifyDataSetChanged()
             }
@@ -50,6 +54,8 @@ class SearchActivity : AppCompatActivity() {
         viewModel.courseLiveData.observe(this, Observer { result ->
             val courses = result.getOrNull()
             if (courses != null) {
+                tv_no_course.visibility= View.GONE
+                recyclerView.visibility=View.VISIBLE
                 viewModel.courseList.clear()
                 viewModel.courseList.addAll(courses)
                 //recyclerView.adapter=adapter

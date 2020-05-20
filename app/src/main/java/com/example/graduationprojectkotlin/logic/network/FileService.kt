@@ -1,5 +1,6 @@
 package com.example.graduationprojectkotlin.logic.network
 
+import com.example.graduationprojectkotlin.logic.model.StatusResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -14,12 +15,12 @@ interface FileService {
     @POST("Study/file")
     fun uploadFile(
         @Part file: List<MultipartBody.Part>
-    ): Call<ResponseBody>
+    ): Call<StatusResponse>
 
 
     @Multipart
     @POST("Study/img")
     fun uploadImg(
         @Part file: List<MultipartBody.Part>
-    ): Call<ResponseBody>
+    ): Call<StatusResponse>
 }

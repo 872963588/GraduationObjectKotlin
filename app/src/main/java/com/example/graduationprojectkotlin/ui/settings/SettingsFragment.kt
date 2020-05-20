@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.graduationprojectkotlin.*
 import com.example.graduationprojectkotlin.logic.Repository
 import com.example.graduationprojectkotlin.ui.login.LoginActivity
@@ -87,6 +88,7 @@ class SettingsFragment : Fragment() {
         tv_user_name.text = Repository.getSavedUser().name
 
         val url = Repository.getSavedUser().picture
-        Glide.with(this).load(url).into(img_user_img)
+        Glide.with(this).load(url).placeholder(R.drawable.img_load).skipMemoryCache(true)//跳过内存缓存
+            .diskCacheStrategy(DiskCacheStrategy.NONE).into(img_user_img)
     }
 }

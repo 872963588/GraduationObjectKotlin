@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.graduationprojectkotlin.logic.Repository
 import com.example.graduationprojectkotlin.logic.model.CreateCourseInfo
+import okhttp3.MultipartBody
 
 class CreateCourseViewModel: ViewModel() {
 
@@ -18,6 +19,14 @@ class CreateCourseViewModel: ViewModel() {
 
     fun create(name:String,detail:String,sort:String) {
         courseInfoLiveData.value = CreateCourseInfo(name,detail,owner,sort)
+    }
+
+    var parts=MutableLiveData<MutableList<MultipartBody.Part>>()
+    val isUploaded=Transformations.switchMap(parts) { parts ->
+        Repository.uploadImg(parts)
+    }
+    fun getParts(data: MutableList<MultipartBody.Part>) {
+        parts.value=data
     }
 
 }

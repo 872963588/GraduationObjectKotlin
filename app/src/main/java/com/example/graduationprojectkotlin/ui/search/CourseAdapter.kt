@@ -40,7 +40,7 @@ class CourseAdapter(val courseList: List<Course>) :
         holder.courseName.text = course.name
         holder.courseOwner.text = course.owner
         val url = course.picture
-        Glide.with(GraduationProjectKotlinApplication.context).load(url).into(holder.courseImg)
+        Glide.with(GraduationProjectKotlinApplication.context).load(url).placeholder(R.drawable.img_load).into(holder.courseImg)
         holder.itemView.setOnClickListener {
             CourseInfoActivity.actionStart(GraduationProjectKotlinApplication.context,course.id)
         }

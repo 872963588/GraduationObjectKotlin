@@ -96,7 +96,7 @@ class CourseInfoActivity : AppCompatActivity() {
 
                 //tv_owner.setText(Repository.getName(course.owner.toInt()))
                 tv_detail.setText(course.detail)
-                Glide.with(this).load(course.picture).into(iv_picture)
+                Glide.with(this).load(course.picture).placeholder(R.drawable.img_load).into(iv_picture)
             } else {
                 Toast.makeText(this, "获取失败，请查看网络", Toast.LENGTH_SHORT).show()
                 result.exceptionOrNull()?.printStackTrace()

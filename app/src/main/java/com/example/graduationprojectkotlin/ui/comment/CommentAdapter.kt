@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.graduationprojectkotlin.GraduationProjectKotlinApplication
 import com.example.graduationprojectkotlin.R
 import com.example.graduationprojectkotlin.UserInfoActivity
@@ -41,7 +42,8 @@ class CommentAdapter(val fragment: Fragment, private val commentList: List<Comme
         holder.commentTime.text=comment.time
         holder.commentDetail.text=comment.detail
         val url = comment.picture
-        Glide.with(fragment).load(url).into(holder.userImg)
+        Glide.with(fragment).load(url).placeholder(R.drawable.img_load).skipMemoryCache(true)//跳过内存缓存
+            .diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.userImg)
 
         holder.itemView.setOnClickListener {
             UserInfoActivity.actionStart(GraduationProjectKotlinApplication.context,comment.userId)

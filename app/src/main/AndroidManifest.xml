@@ -28,7 +28,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:windowSoftInputMode="stateHidden|adjustResize">
+        android:windowSoftInputMode="adjustPan">
         <activity android:name=".ui.study.ImageActivity"></activity>
         <activity android:name=".TaskInfoActivity" />
         <activity android:name=".ManageTaskActivity" />
