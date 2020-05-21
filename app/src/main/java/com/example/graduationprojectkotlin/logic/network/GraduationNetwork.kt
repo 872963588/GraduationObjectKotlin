@@ -39,6 +39,10 @@ object GraduationNetwork {
     suspend fun alterPassword(id: String,password: String) =
         userService.alterPassword(id,password).await()
     suspend fun getUserInfo(query: Int) = userService.getInfo(query).await()
+    suspend fun addUserCourse(userId: Int,courseId: Int) =
+        userService.addUserCourse(userId,courseId).await()
+    suspend fun delUserCourse(userId: Int,courseId: Int) =
+        userService.delUserCourse(userId,courseId).await()
 
 
 

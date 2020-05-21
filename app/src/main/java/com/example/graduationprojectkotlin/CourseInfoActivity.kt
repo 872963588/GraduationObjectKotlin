@@ -57,6 +57,70 @@ class CourseInfoActivity : AppCompatActivity() {
             ManageTaskActivity.actionStart(GraduationProjectKotlinApplication.context,courseId)
         }
 
+        btn_join.setOnClickListener {
+            viewModel.join(courseId)
+        }
+
+        btn_del.setOnClickListener {
+            viewModel.del(courseId)
+        }
+
+        viewModel.isJoinLiveData.observe(this, Observer { result ->
+            val statusResponse = result.getOrNull()
+            if (statusResponse != null) {
+                if (statusResponse.status == "true") {
+                    Toast.makeText(
+                        GraduationProjectKotlinApplication.context,
+                        "加入成功",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                } else {
+                    Toast.makeText(
+                        GraduationProjectKotlinApplication.context,
+                        "加入失败，请检查网络",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    result.exceptionOrNull()?.printStackTrace()
+                }
+            }else{
+                Toast.makeText(
+                    GraduationProjectKotlinApplication.context,
+                    "加入失败，请检查网络",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        })
+
+        viewModel.isDelLiveData.observe(this, Observer { result ->
+            val statusResponse = result.getOrNull()
+            if (statusResponse != null) {
+                if (statusResponse.status == "true") {
+                    Toast.makeText(
+                        GraduationProjectKotlinApplication.context,
+                        "退出成功",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                } else {
+                    Toast.makeText(
+                        GraduationProjectKotlinApplication.context,
+                        "退出失败，请检查网络",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    result.exceptionOrNull()?.printStackTrace()
+                }
+            }else{
+                Toast.makeText(
+                    GraduationProjectKotlinApplication.context,
+                    "退出失败，请检查网络",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        })
+
 
         viewModel.deleteLiveData.observe(this, Observer { result ->
             val statusResponse = result.getOrNull()
@@ -89,7 +153,7 @@ class CourseInfoActivity : AppCompatActivity() {
 //                    btn_delete.visibility = View.VISIBLE
 //                    btn_manage.visibility = View.VISIBLE
                     linearLayout.visibility = View.VISIBLE
-                    btn_join.visibility = View.GONE
+                    linearLayout1.visibility = View.GONE
                 }
                 tv_course_name.setText(course.name)
                 //tv_owner.setText(course.owner)

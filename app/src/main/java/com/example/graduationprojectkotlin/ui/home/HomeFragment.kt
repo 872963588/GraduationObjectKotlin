@@ -93,4 +93,9 @@ class HomeFragment : Fragment() {
         taskFragment.arguments = bundle
         return taskFragment
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.searchCourses(Repository.getSavedUser().id.toString())
+    }
 }

@@ -40,4 +40,26 @@ class CourseInfoViewModel : ViewModel() {
         deleteIDLiveData.value = courseIdLiveData.value
     }
 
+    //加入课程
+    private val joinLiveData = MutableLiveData<Int>()
+
+    val isJoinLiveData = Transformations.switchMap(joinLiveData){ courseId->
+        Repository.addUserCourse(Repository.getSavedUser().id,courseId)
+    }
+
+    fun join(courseId:Int) {
+        joinLiveData.value =courseId
+    }
+
+    //退出课程
+    private val delLiveData = MutableLiveData<Int>()
+
+    val isDelLiveData = Transformations.switchMap(delLiveData){ courseId->
+        Repository.delUserCourse(Repository.getSavedUser().id,courseId)
+    }
+
+    fun del(courseId:Int) {
+        delLiveData.value = courseId
+    }
+
 }

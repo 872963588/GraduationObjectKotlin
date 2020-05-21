@@ -34,6 +34,16 @@ interface UserService {
     @POST("Study/user?type=password")
     fun alterPassword(@Field("id") id: String,@Field("password") password: String): Call<StatusResponse>
 
+    //加入课程
+    @FormUrlEncoded
+    @POST("Study/user?type=add")
+    fun addUserCourse(@Field("userId") userId: Int,@Field("courseId") courseId: Int): Call<StatusResponse>
+
+    //退出课程
+    @FormUrlEncoded
+    @POST("Study/user?type=del")
+    fun delUserCourse(@Field("userId") userId: Int,@Field("courseId") courseId: Int): Call<StatusResponse>
+
 //    @GET("Study/user")
 //    fun userLogin(
 //        @Query("userEmail") userEmail: String,

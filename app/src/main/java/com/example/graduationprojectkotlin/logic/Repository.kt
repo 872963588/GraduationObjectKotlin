@@ -168,6 +168,35 @@ object Repository {
         emit(result as Result<StatusResponse>)
     }
 
+    fun addUserCourse(userId: Int,courseId: Int) = liveData(Dispatchers.IO) {
+        val result = try {
+            val statusResponse = GraduationNetwork.addUserCourse(userId,courseId)
+            if (statusResponse.status == "true") {
+
+                Result.success(statusResponse)
+            } else {
+                Result.failure(RuntimeException("response status is ${statusResponse.status}"))
+            }
+        } catch (e: Exception) {
+            Result.failure<StatusResponse>(e)
+        }
+        emit(result as Result<StatusResponse>)
+    }
+    fun delUserCourse(userId: Int,courseId: Int) = liveData(Dispatchers.IO) {
+        val result = try {
+            val statusResponse = GraduationNetwork.delUserCourse(userId,courseId)
+            if (statusResponse.status == "true") {
+
+                Result.success(statusResponse)
+            } else {
+                Result.failure(RuntimeException("response status is ${statusResponse.status}"))
+            }
+        } catch (e: Exception) {
+            Result.failure<StatusResponse>(e)
+        }
+        emit(result as Result<StatusResponse>)
+    }
+
     fun getUserInfo(query: Int) = liveData(Dispatchers.IO) {
         val result = try {
             val userInfoResponse = GraduationNetwork.getUserInfo(query)
