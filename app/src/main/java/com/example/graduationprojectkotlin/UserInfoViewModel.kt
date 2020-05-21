@@ -10,7 +10,7 @@ import okhttp3.MultipartBody
 class UserInfoViewModel : ViewModel() {
 
     //修改用户信息
-    var picture =""
+    var picture =Repository.getSavedUser().picture
 
     private val userInfoLiveData = MutableLiveData<User>()
 

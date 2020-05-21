@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="20dp"
+    android:backgroundTint="#80FFFFFF"
     android:elevation="5dp"
     android:theme="@style/Theme.MaterialComponents.NoActionBar"
-    app:cardBackgroundColor="@android:color/background_light"
+    app:cardBackgroundColor="#80FFFFFF"
     app:cardCornerRadius="4dp">
 
 

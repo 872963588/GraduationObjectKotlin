@@ -41,29 +41,33 @@ class CreateCourseActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
     }
-    val viewModel by lazy{ ViewModelProvider(this).get(CreateCourseViewModel::class.java)}
-    lateinit var uri :Uri
-    var isUpload=false
+
+    val viewModel by lazy { ViewModelProvider(this).get(CreateCourseViewModel::class.java) }
+    lateinit var uri: Uri
+    var isUpload = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_course)
 
-        val adapter = ArrayAdapter<String>(GraduationProjectKotlinApplication.context,android.R.layout.simple_spinner_item,data)
+        val adapter = ArrayAdapter<String>(
+            GraduationProjectKotlinApplication.context,
+            android.R.layout.simple_spinner_item,
+            data
+        )
         spinner.adapter = adapter
 
-        //TODO 记得传递owner
         btn_create.setOnClickListener {
             //TODO 验证
-            progressBar.visibility= View.VISIBLE
+            progressBar.visibility = View.VISIBLE
             //val number=et_number.text.toString()
-            val name=et_name.text.toString()
-            val detail=et_detail.text.toString()
+            val name = et_name.text.toString()
+            val detail = et_detail.text.toString()
             //val email=et_email.text.toString()
             //val school=et_school.text.toString()
             //val sex=et_sex.text.toString()
-            val sort=spinner.selectedItem.toString()
-            viewModel.create(name,detail,sort)
+            val sort = spinner.selectedItem.toString()
+            viewModel.create(name, detail, sort)
         }
 
         viewModel.statusLiveData.observe(this, Observer { result ->
@@ -72,10 +76,14 @@ class CreateCourseActivity : AppCompatActivity() {
                 if (statusResponse.status != "false") {
 
                     //上传图片
-                    if(isUpload){
-                        upload(uri,statusResponse.status)
-                    }else{
-                        Toast.makeText(GraduationProjectKotlinApplication.context,"创建成功", Toast.LENGTH_SHORT).show()
+                    if (isUpload) {
+                        upload(uri, statusResponse.status)
+                    } else {
+                        Toast.makeText(
+                            GraduationProjectKotlinApplication.context,
+                            "创建成功",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         finish()
                     }
                 } else {
@@ -86,7 +94,7 @@ class CreateCourseActivity : AppCompatActivity() {
                     ).show()
                     result.exceptionOrNull()?.printStackTrace()
                 }
-            }else{
+            } else {
                 Toast.makeText(
                     GraduationProjectKotlinApplication.context,
                     "创建失败，请检查网络",
@@ -100,7 +108,11 @@ class CreateCourseActivity : AppCompatActivity() {
             val statusResponse = result.getOrNull()
             if (statusResponse != null) {
                 if (statusResponse.status == "true") {
-                    Toast.makeText(GraduationProjectKotlinApplication.context,"创建成功", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        GraduationProjectKotlinApplication.context,
+                        "创建成功",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     finish()
                 } else {
                     Toast.makeText(
@@ -110,7 +122,7 @@ class CreateCourseActivity : AppCompatActivity() {
                     ).show()
                     result.exceptionOrNull()?.printStackTrace()
                 }
-            }else{
+            } else {
                 Toast.makeText(
                     GraduationProjectKotlinApplication.context,
                     "服务器异常",
@@ -120,8 +132,6 @@ class CreateCourseActivity : AppCompatActivity() {
 
         })
 
-
-        //TODO 这里的图片 记得学啊   记得传递owner
         button3.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
@@ -135,13 +145,8 @@ class CreateCourseActivity : AppCompatActivity() {
         when (requestCode) {
             1 -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
-//                    data.data?.let { uri ->
-//
-//                    }
-
                     uri = data.data!!
-                    isUpload=true
-
+                    isUpload = true
                     val bitmap = getBitmapFromUri(uri)
                     imageView.setImageBitmap(bitmap)
                 }
@@ -149,40 +154,22 @@ class CreateCourseActivity : AppCompatActivity() {
         }
     }
 
-    fun upload(uri :Uri,name:String){
-        //                        Log.d("123456", uri.toString())
-//                        Log.d("123456", uri.path)
-//                        Log.d("123456", getRealPathFromUri(context,uri))
-        val file=File(PathUtil.getRealPathFromUri(context,uri))
+    private fun upload(uri: Uri, name: String) {
+        val file = File(PathUtil.getRealPathFromUri(context, uri))
         val builder = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
-        //.addFormDataPart("abc", "abc")//在这里添加服务器除了文件之外的其他参数
         val imageBody =
             RequestBody.create(MediaType.parse("multipart/form-data"), file)
-        //builder.addFormDataPart("uploadfile", file.getName(), imageBody)
-
         val name1 = file.getName()
-        val int=name1.lastIndexOf(".")
-        val name3 =name+name1.substring(int)
+        val int = name1.lastIndexOf(".")
+        val name3 = name + name1.substring(int)
 
-
-        builder.addFormDataPart("uploadfile",name3, imageBody)
-//        val parts =
-//            builder.build().parts()
-//        Repository.uploadImg(parts)
-//
-//        finish()
+        builder.addFormDataPart("uploadfile", name3, imageBody)
         viewModel.getParts(builder.build().parts())
-
-        // Log.d("123456", uri.getAuthority())
-
-
-
     }
 
     private fun getBitmapFromUri(uri: Uri) = contentResolver.openFileDescriptor(uri, "r")?.use {
         BitmapFactory.decodeFileDescriptor(it.fileDescriptor)
-
     }
 
     private val data = listOf(
@@ -201,7 +188,5 @@ class CreateCourseActivity : AppCompatActivity() {
         "艺术学",
         "其他"
     )
-
-
 
 }

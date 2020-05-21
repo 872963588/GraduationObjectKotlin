@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.graduationprojectkotlin.logic.Repository
 import com.example.graduationprojectkotlin.logic.util.PathUtil
+import com.example.graduationprojectkotlin.logic.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_create_task.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -118,7 +119,11 @@ class CreateTaskActivity : AppCompatActivity() {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     uri = data.data!!
                     isUpload=true
-
+                    val file= File(PathUtil.getRealPathFromUri(this,uri))
+                    //val name1 = file.name
+                    //ToastUtil.show(file.name)
+                    textView14.text=file.name
+                    
                     //TODO 修改Text名字
 //                    val bitmap = getBitmapFromUri(uri)
 //                    imageView.setImageBitmap(bitmap)
@@ -136,6 +141,7 @@ class CreateTaskActivity : AppCompatActivity() {
         //builder.addFormDataPart("uploadfile", file.getName(), imageBody)
 
         val name1 = file.getName()
+        
         val index=name1.lastIndexOf(".")
         val name3 =name+name1.substring(index)
 

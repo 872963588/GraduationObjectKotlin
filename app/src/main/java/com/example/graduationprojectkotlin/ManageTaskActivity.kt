@@ -60,9 +60,9 @@ class ManageTaskActivity : AppCompatActivity() {
         }
 
         val layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
+        recyclerView1.layoutManager = layoutManager
         val adapter = TaskAdapter(this,viewModel.taskList,true)
-        recyclerView.adapter=adapter
+        recyclerView1.adapter=adapter
 
 
 
@@ -72,12 +72,18 @@ class ManageTaskActivity : AppCompatActivity() {
         viewModel.taskLiveData.observe(this, Observer { result ->
             val tasks = result.getOrNull()
             if (tasks != null) {
-                viewModel.taskList.clear()
-                viewModel.taskList.addAll(tasks)
-                adapter.notifyDataSetChanged()
-            } else {
-                Toast.makeText(this, "未能查询到任何任务", Toast.LENGTH_SHORT).show()
-                result.exceptionOrNull()?.printStackTrace()
+                if (tasks.isNotEmpty()) {
+                    tv_no_task1.visibility=View.GONE
+                    recyclerView1.visibility=View.VISIBLE
+                    viewModel.taskList.clear()
+                    viewModel.taskList.addAll(tasks)
+                    adapter.notifyDataSetChanged()
+                } else {
+                    recyclerView1.visibility=View.GONE
+                    tv_no_task1.visibility=View.VISIBLE
+                    //Toast.makeText(this, "未能查询到任何任务", Toast.LENGTH_SHORT).show()
+                    result.exceptionOrNull()?.printStackTrace()
+                }
             }
 
         })

@@ -42,8 +42,9 @@ class CommentAdapter(val fragment: Fragment, private val commentList: List<Comme
         holder.commentTime.text=comment.time
         holder.commentDetail.text=comment.detail
         val url = comment.picture
-        Glide.with(fragment).load(url).placeholder(R.drawable.img_load).skipMemoryCache(true)//跳过内存缓存
-            .diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.userImg)
+        Glide.with(fragment).load(url).placeholder(R.drawable.img_load)//.skipMemoryCache(true)//跳过内存缓存
+            //.diskCacheStrategy(DiskCacheStrategy.NONE)
+            .into(holder.userImg)
 
         holder.itemView.setOnClickListener {
             UserInfoActivity.actionStart(GraduationProjectKotlinApplication.context,comment.userId)

@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.graduationprojectkotlin.*
 import com.example.graduationprojectkotlin.logic.Repository
+import com.example.graduationprojectkotlin.logic.util.ToastUtil
 import com.example.graduationprojectkotlin.ui.login.LoginActivity
 
 import kotlinx.android.synthetic.main.settings_fragment.*
@@ -37,8 +38,12 @@ class SettingsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
         // TODO: Use the ViewModel
 
+        button8.setOnClickListener {
+            ToastUtil.show("${Repository.getSavedUser().picture}")
+        }
         img_user_img.setOnClickListener {
-            UserInfoActivity.actionStart(GraduationProjectKotlinApplication.context,0)
+            val intent = Intent(activity,UserInfoActivity::class.java)
+            startActivityForResult(intent,2)
         }
         btn_help.setOnClickListener {
             TBSneiheActivity.actionStart(GraduationProjectKotlinApplication.context)
@@ -82,13 +87,14 @@ class SettingsFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             1->getInfo()
+            2->getInfo()
         }
     }
     private fun getInfo() {
         tv_user_name.text = Repository.getSavedUser().name
-
         val url = Repository.getSavedUser().picture
         Glide.with(this).load(url).placeholder(R.drawable.img_load).skipMemoryCache(true)//跳过内存缓存
             .diskCacheStrategy(DiskCacheStrategy.NONE).into(img_user_img)
     }
+
 }

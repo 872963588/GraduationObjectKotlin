@@ -85,9 +85,10 @@ class CourseInfoActivity : AppCompatActivity() {
             val course = result.getOrNull()
             if (course != null) {
                 if (course.owner==Repository.getSavedUser().id.toString()){
-                    btn_alter.visibility = View.VISIBLE
-                    btn_delete.visibility = View.VISIBLE
-                    btn_manage.visibility = View.VISIBLE
+//                    btn_alter.visibility = View.VISIBLE
+//                    btn_delete.visibility = View.VISIBLE
+//                    btn_manage.visibility = View.VISIBLE
+                    linearLayout.visibility = View.VISIBLE
                     btn_join.visibility = View.GONE
                 }
                 tv_course_name.setText(course.name)

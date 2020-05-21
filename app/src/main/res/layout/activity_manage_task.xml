@@ -13,9 +13,19 @@
 
         <Button
             android:id="@+id/btn_add"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/search_button"
             android:text="添加任务" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#90909090" />
 
         <TextView
             android:id="@+id/textView3"
@@ -25,18 +35,28 @@
             android:text="任务列表"
             android:textColor="@color/colorAccent"
             android:textStyle="bold" />
+
         <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_width="fill_parent"
-            android:background="#90909090"
-            android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            />
+            android:layout_marginBottom="5dp"
+            android:background="#90909090" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recyclerView1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_no_task1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="你还没有发布任务哟~" />
 
     </LinearLayout>
 

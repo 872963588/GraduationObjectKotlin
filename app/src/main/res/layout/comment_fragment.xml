@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".ui.comment.CommentFragment">
 
     <LinearLayout
@@ -15,14 +15,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:background="@drawable/search_button"
             android:gravity="center"
-            android:text="评论区" />
+            android:text="评论区"
+            android:textColor="@color/design_default_color_on_secondary" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="#4DFFFFFF"
             android:scrollbars="vertical"
             android:visibility="gone">
 
@@ -30,17 +33,21 @@
 
         <TextView
             android:id="@+id/tv_no_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="#4DFFFFFF"
+            android:gravity="center"
             android:text="快来抢占第一条评论吧~"
             android:visibility="visible" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <EditText

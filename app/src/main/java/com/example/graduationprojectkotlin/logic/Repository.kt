@@ -494,7 +494,7 @@ object Repository {
 
     fun addTaskComment(userId: String,detail:String,taskId: String) = liveData(Dispatchers.IO) {
         val result = try {
-            val statusResponse = GraduationNetwork.addCourseComment(userId,detail,taskId)
+            val statusResponse = GraduationNetwork.addTaskComment(userId,detail,taskId)
             //判断是否得到数据
             if (statusResponse.status == "true") {
                 Result.success(statusResponse)

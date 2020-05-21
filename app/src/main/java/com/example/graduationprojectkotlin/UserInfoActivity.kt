@@ -41,6 +41,11 @@ class UserInfoActivity : AppCompatActivity() {
     val viewModel by lazy { ViewModelProvider(this).get(UserInfoViewModel::class.java) }
     lateinit var uri :Uri
     var isUpload=false
+    var number = ""
+    var name = ""
+    var email =""
+    var school =""
+    var sex =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,11 +91,11 @@ class UserInfoActivity : AppCompatActivity() {
 
 
         btn_alter.setOnClickListener {
-            val number = et_number.text.toString()
-            val name = et_name.text.toString()
-            val email = et_email.text.toString()
-            val school = et_school.text.toString()
-            val sex = et_sex.text.toString()
+            number = et_number.text.toString()
+            name = et_name.text.toString()
+            email = et_email.text.toString()
+            school = et_school.text.toString()
+            sex = et_sex.text.toString()
 
             if (StringUtil.isEmpty(number)) {
                 ToastUtil.show("学号不能为空")
@@ -105,7 +110,14 @@ class UserInfoActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            viewModel.setUserInfo(number, name, email, school, sex)
+
+
+            if(isUpload){
+                upload(uri)
+                //viewModel.setUserInfo(number, name, email, school, sex)
+            }else{
+                viewModel.setUserInfo(number, name, email, school, sex)
+            }
         }
 
 
@@ -114,12 +126,12 @@ class UserInfoActivity : AppCompatActivity() {
             if (statusResponse != null) {
                 if (statusResponse.status == "true") {
 
-                    if(isUpload){
-                        upload(uri)
-                    }else{
+//                    if(isUpload){
+//                        upload(uri)
+//                    }else{
                         Toast.makeText(GraduationProjectKotlinApplication.context,"修改成功", Toast.LENGTH_SHORT).show()
                         finish()
-                    }
+                    //}
 
 //                    finish()
                 } else {
@@ -138,8 +150,10 @@ class UserInfoActivity : AppCompatActivity() {
             val statusResponse = result.getOrNull()
             if (statusResponse != null) {
                 if (statusResponse.status == "true") {
-                    Toast.makeText(GraduationProjectKotlinApplication.context,"创建成功", Toast.LENGTH_SHORT).show()
-                    finish()
+                    //Toast.makeText(GraduationProjectKotlinApplication.context,"创建成功", Toast.LENGTH_SHORT).show()
+                   // finish()
+                    viewModel.setUserInfo(number, name, email, school, sex)
+
                 } else {
                     Toast.makeText(
                         GraduationProjectKotlinApplication.context,
