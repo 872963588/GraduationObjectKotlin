@@ -1,1 +1,1 @@
-# GraduationObjectKotlin
+# GraduationProjectKotlin
